@@ -1,0 +1,333 @@
+/*inportação do bootstrap*/
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+/*css aplicavel a todo o sistema*/
+*{
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+    list-style: none;
+    font-size: 12px;
+}
+/*css para o corpo do sistema*/
+body{
+  font-family: 'Noto Sans', sans-serif;
+  background: #f0f0f0;
+}
+/*css para contener*/
+#div-contener {
+    width: 1024px;
+    height: 730px;
+    background-color: #727272;
+    margin: 0 auto 0 auto;
+}
+/*css aplicavél a cabeçalho*/
+#div-contener #div-header {
+    background-color: #3C7D7F;
+    width: 1024px;
+    height: 150px;
+}
+/*css aplicavél ao menú*/
+#div-contener #div-menu-vert {
+    width: 250px;
+    min-width: 0px;
+    background-color: #727272;
+    float: left;
+    height: 550px;
+}
+    #div-menu-vert{
+        padding-top: 0%;
+        width: 250px;
+        padding: 0px;
+        height: 550px;
+        margin-top: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        font-size: 13px;
+    }
+/*css aplicavél no ambiente do utilizador*/
+#div-contener #div-header #div-utilizador{
+    position: absolute;
+    width: 1015px;
+    right: auto;
+    top: 100px;
+    text-align: right;
+    z-index: 3;
+    color: #F0F0F0;
+    font-size: 13px;
+}
+/*css aplicavél ao logotipo*/
+#div-contener #div-header #div-logo{
+    position: absolute;
+    width: 250px;
+    height: 85px;
+    left: auto;
+    color: #F0F0F0;
+    top: 10px;
+    z-index: 4;
+}
+/*css aplicavél a outro tags*/
+li{
+    list-style: none; 
+    background:#F0F0F0; 
+    width: 250px; 
+    border-bottom: 1px solid #3C7D7F;
+}
+li a{
+    display: block;
+    padding: 8px; 
+    border-right: 10px solid #3C7D7F; 
+    text-decoration: none; 
+    box-shadow: 2px 2px 5px #FFFFFF; 
+    color: #000000;
+}
+li a:hover{
+    border-right: 10px solid #FFFFFF; 
+    background: #3C7D7F;
+}
+li ul{
+    display: none;
+}
+li:hover ul{
+    display: block;
+}
+li:hover ul li{
+    background: #FFFFFF;
+}
+li:hover ul li a {
+    color: #3C7F7D;
+}
+li:hover ul li a:hover {
+    background: #F0F0F0; 
+    border-right: 10px solid #FB0716;
+}
+/*css aplicavél ao div do conteúdo*/
+#div-conteudo{
+    width: 744px;
+    height: 580px;
+    min-width: 0px;
+    float: left;
+    background-color: #F0F0F0;
+}
+#div-contener footer {
+    width: 1024px;
+    height: 50px;
+    float: left;
+    background-color: #3C7F7D;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0px 0px #F0F0F0;
+    color: #F0F0F0;
+}
+
+
+.header {
+  background-color: #3c7f7b;
+  padding: 20px;
+  text-align: center;
+}
+#login{
+    width: 250px;
+    margin: 0 auto;
+    position: relative;
+    top: 200px;
+    border: 1px solid #3c7f7b;
+    padding: 10px;  
+}
+.s-logo{
+  width: 200px;
+  height: 52px;
+  margin: 0 auto;
+  padding: 7px;
+
+}
+#login label{
+   display: block;
+   padding-top: 10px;
+
+}
+
+#login input{
+    padding: 2px;
+    text-align: left;
+}
+
+.txt{
+    border: none; 
+    height: 40px;
+    width: 250px;
+    border: thin solid #3c7f7b; 
+}
+
+.txt:focus{
+  border:thin solid #3c7f7b;
+  box-shadow: 0 2px 10px #727272;
+  webkit-box-shadow: 0 2px 10px #727272;
+  moz-box-shadow: 0 2px 10px #727272;
+}
+.btn{
+    display: block;
+    border: none;
+    width: 255px;
+    height: 45px;
+    margin-top: 15px;
+    cursor: pointer;
+    font: 400 20px 'Noto Sans', sans-serif;
+    color: #3c7f7b;
+}
+.btn:hover{
+        background: #3c7f7b;
+        color: #FFFFFF;
+    
+}
+/*Classe de herança*/
+
+.bradius{
+    border-radius: 6px;
+    webkit-border-radius: 6px;
+    moz-border-radius: 6px;
+}
+.fleft{
+ float: left;   
+}
+.fright{
+    float: right;
+}
+/*Múltiplos estilos*/
+.txt, txt:focus, .btn, .btn:hover {
+    transition: all 0.3s linear;
+    webkit-transition: all 0.3s linear;
+    moz-transition: all 0.3s linear;
+}
+/* estilos para tabela*/
+#table{
+    
+    border-collapse: collapse;
+    width: 98%;
+    background-color: #FFFFFF;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+#table th, td {
+  text-align: center;
+  padding: 7px;
+
+}
+
+#table tr:nth-child(even){background-color: #E8EFE4; }
+
+#table th {
+  background-color: #E8EFE4;
+  color: white;
+}
+/* estilos para form pesquisa de utilizadores*/
+#div-contener #div-conteudo #form-pesq{
+            align:left;
+            padding-left: 10px;
+        }
+#div-contener #div-conteudo #div-regist-ut{
+            align:left;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+#div-contener #form-pesq input {
+            align:center;
+            
+        }
+#div-contener #div-conteudo #form-pesq legend{
+          text-align: left;
+          color: darkcyan;
+          font-size: 15px;
+          padding: 5px;
+          }
+/*estilos com acção sobre link  */
+
+a:link, a:visited, a:active {
+	text-decoration: none;
+	}
+a:hover {text-decoration: underline;  
+	color:#000; 
+	font-size:150%; 
+	}
+
+/*estilos de form registro utilizadores */
+#div-contener #div-conteudo #div-form-utilizador legend{
+          text-align: left;
+          color: darkcyan;
+          font-size: 15px;
+          padding: 5px;
+          }
+     #div-contener  #div-conteudo #div-form-utilizador {
+            text-align: left;
+            margin: 0 8px;
+        }
+
+     #div-contener  #div-conteudo #div-form-utilizador .direita {
+            float: right;
+            width:50%;
+
+        }
+
+     #div-contener  #div-conteudo #div-form-utilizador  .esquerda {
+            float: left;
+            width:50%;
+
+        }
+
+    #div-contener  #div-conteudo #div-form-utilizador  label {
+            line-height: 30px;
+            text-align:left;
+            color:#363636;
+        }
+
+    #div-contener   #div-conteudo #div-form-utilizador  input {
+            padding: 9px;
+            border: 1px solid #CCCCCC;
+            background: #E8EFE4;
+            border-radius: 4px;
+            color:#363636;
+        }
+
+     #div-contener  #div-conteudo #div-form-utilizador  select {
+            padding: 9px;
+            border: 1px solid #CCCCCC;
+            background: #E8EFE4;
+            border-radius: 4px;
+            color:#363636;
+        }
+
+     #div-contener   #div-conteudo #div-form-utilizador  .botao {
+            cursor: pointer;
+            text-align: left;
+            margin: 0 0 0 0;
+            color: #FFF;
+            background-color: #45543D;
+        }
+
+      #div-contener  #div-conteudo #div-form-utilizador  .botao:hover {
+            background-color: #354030;
+        }
+
+     #div-contener  #div-conteudo #div-form-utilizador copy {
+            color: #363636;
+            text-align: center;
+            margin: 50px 150px;
+        }
+/**/
+    #div-contener  #div-conteudo #div-regist-ut #div-num-pagina {
+            text-align: center;
+            font-size: 20px;
+        }
+/**/
+#div-contener #div-conteudo .novo{
+        text-align: right;
+        padding-right: 10px;
+        }
+/**/
+        #div-contener #div-conteudo .pesquisa{
+        text-align: right;
+        padding-right: 10px;
+        
+        }
