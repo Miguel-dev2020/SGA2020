@@ -1,134 +1,106 @@
-<?php 
-        require_once("../views/connect.php");
-        //require_once '../controllers/processautilizador.php';
-        if(isset($_SESSION['msg'])){
-			echo $_SESSION['msg'];
-			unset($_SESSION['msg']);
-		}
-		
-		//Receber o número da página
-		$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT);		
-		$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
-		
-		//Setar a quantidade de itens por pagina
-		$qt_result_pag = 2;
-		
-		//calcular o inicio visualização
-		$inicio = ($qt_result_pag * $pagina) - $qt_result_pag;
-		
-		$result_utilizador = "SELECT * FROM utilizadores LIMIT $inicio, $qt_result_pag";
-		$resultado_utilizadores = mysqli_query($conn, $result_utilizador);
-
-?>
+<?php //require_once("../views/connect.php");?>
+<?php require_once '../controllers/processautilizador.php'; ?>
 <!doctype html>
 <html>
 
 <head>
-    <title>SGA - Utilizadores</title>
+    <title>SGA - Administração de Utilizadores</title>
     <?php include("../libraries/header.php")?>
+
 </head>
 
 <body>
-    
+
     
 <div id="div-contener">
+     <?php 
+        //Receber o número da página
+		$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT);		
+		$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
+		
+		//Setar a quantidade de itens por pagina
+		$qt_result_pag = 3;
+		
+		//calcular o inicio visualização
+		$inicio = ($qt_result_pag * $pagina) - $qt_result_pag;
+                
+                
+        $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM utilizadores LIMIT $inicio, $qt_result_pag")or die ($mysqli->error);
+        //$result = $mysqli->query("SELECT * FROM utilizadores") or die ($mysqli->error);
+        //pre_r($result);
+        //pre_r($result ->fetch_assoc());
+        ?>
   <div id="div-header">
          <?php include("../libraries/body.php")?>
    </div>
   <div id="div-menu-vert">
          <?php include("../libraries/menu.php")?>
   </div>
-  <div id="div-conteudo">
-      <!-- Formulário para Registro de Utilizadores -->
-           <div id="div-form-utilizador">
-               <br><fieldset><legend><b>REGISTRO DE UTILIZADORES</b></legend>
-              <form action="processutilizador.php" method="POST"> 
-                  <input type="hidden" name="id" value="<?php echo $row_utilizador['id'];?>">
-          <div class="utilizador esquerda" id="">
-                    <label for="utilizador">Nome de Utilizador:</label>
-              <br>
-                    <input name="utilizador" type="text" size="50" value="<?php echo $row_utilizador['utilizador'];?>" placeholder="Utilizador">
-                 </div>
-            <div class="esquerda" id="">
-                    <label for="email">E-mail:</label>
-              <br>
-              <input name="email" type="email" size="45" value="<?php echo $row_utilizador['email'];?>" placeholder="exemplo@me.gov.cv">
-                 </div>
-
-            <div class="esquerda" id="">
-                    <label for="senha">Senha:</label>
-              <br>
-                    <input name="senha" type="password" size="25" value="<?php echo $row_utilizador['senha'];?>" placeholder="***********">
-                  </div>       
-            <div class="esquerda" id="">
-                    <label for="situacoe_id">Situações:</label><br>
-                    <select name="situacoe_id" id="">
-                       <option value="Selecionar"> -Seleciona uma situação-</option>
-                        <option value="Selecionar"> 1 </option>
-                        <option value="Selecionar"> 2 </option>
-                    </select>
-                 </div>
-                <div class="direita" id="">
-                    <label for="niveis_acesso_id">Níveis de Acessos:</label><br>
-                    <select name="niveis_acesso_id" id="">
-                       <option value="Selecionar"> -Seleciona um nivel-</option>
-                        <option value="Selecionar"> 1 </option>
-                        <option value="Selecionar"> 2 </option>
-                        <option value="Selecionar"> 3 </option>
-                    </select>
-                 </div>
-                <div class="data direita" id="">
-                    <label for="dt_criacao" >Data de Criação:</label><br>
-                    <input name="dt_criacao" type="datetime" size="25" value="<?php echo $row_utilizador['dt_criacao'];?>" placeholder="AAAA-MM-DD HH:MN:SS">
-                 </div>
-                <div class="data" id="">
-                    <label for="dt_modificacao">Data de Modificação:</label><br>
-                    <input name="dt_modificacao" type="datetime" size="25" value="<?php echo $row_utilizador['dt_modificacao'];?>" placeholder="AAAA-MM-DD HH:MN:SS">
-                 </div><br>
-                  </fieldset>
-                 <br>
-                 <button type="submit" calss="btn btn-info" name="guardar">Guardar</button>
-                 <button type="reset" calss="btn btn-info" name="guardar">Limpar Campos</button>
-                 <!--input type="submit" value="Registrar" class="botao"-->
-                 <!--input type="reset" value="Limpar Campos" class="botao"-->
-              </form>
-           </div>
-           <!-- fim de formulário de registro -->
-      <br>
-      <div id="div-regist-ut">
-<!-- apresentação de lista de dados -->
-          <fieldset><legend><b>LISTAGENS DE UTILIZADORES</b></legend><br>
-       <table id="table table-hover" >
-            <tr>
-              <td>Id</td>
-              <td>Utilizadores</td>
-              <td>Email</td>
-              <td>Situações</td>
-               <td>Niveis de Acesso</td> 
-              <td>Data de Criação</td>
-              <td>Data de Modificação</td>
-              <td>Acções</td>
-            </tr>
-             <?php while($row_utilizador = mysqli_fetch_assoc($resultado_utilizadores)){?>
-              <tr>
-                <td><?php echo $row_utilizador['id'];?></td>
-                  <td><?php echo $row_utilizador['utilizador'];?></td>
-                  <td><?php echo $row_utilizador['email'];?></td>
-                  <td><?php echo $row_utilizador['situacoe_id'];?></td>
-                  <td><?php echo $row_utilizador['niveis_acesso_id'];?></td>
-                  <td><?php echo $row_utilizador['dt_criacao'];?></td>
-                  <td><?php echo $row_utilizador['dt_modificacao'];?></td>
-                  <td><a href="../views/utilizador.php?<?php echo $row_utilizador['id'];?>" class="">upd</a>|<a href="../views/processautilizador.php?<?php echo $row_utilizador['id'];?>" class="">del</a></td>
-
-            </tr>
-              
-              <?php } ?>
-        </table>
-              <div id="div-num-pagina">
-                 <?php    
+  <div id="div-conteudo"> 
+      <br><?php 
+        //Mensagem de Alerta
+        
+        if (isset($_SESSION['message'])): ?>
+        <div class="alert alert-<?=$_SESSION['msg_type']?>">
+            
+            <?php 
+             echo $_SESSION['message'];
+             unset($_SESSION['message']); 
+            ?>
+        </div>
+        <?php endif ?>
+                       
+              <div id="div-form-utilizador">                  
+                  <br>
+                  <fieldset><legend><b>LISTA DE UTILIZADORES</b></legend><br>
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>Utilizador</th>
+                        <th>Email</th>
+                        <th>Data Criação</th>
+                        <th>Situação</th>
+                        <th>Nivel de Acesso</th>
+                        <th>Data Modificação</th>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                </thead>
+                <?php 
+                        while ($row = $result->fetch_assoc()):?>
+                <tr>
+                    <td><?php echo $row['utilizador']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['dt_criacao']; ?></td>
+                    <td><?php echo $row['situacoe_id']; ?></td>
+                    <td><?php echo $row['niveis_acesso_id']; ?></td>
+                    <td><?php echo $row['dt_modificacao']; ?></td>
+                    <td>
+                        <a href="../views/utilizador.php?edit=<?php echo $row['id']; ?>"
+                           class="btn-ed">Edit</a> |
+                           <a href="../controllers/processautilizador.php?delete=<?php echo $row['id']; ?>"
+                           class="btn-del">Del</a>
+                    </td>
+                        
+                    
+                </tr>
+                <?php endwhile; ?>
+            </table>
+                  </fieldset><br>
+        </div>
+        
+                <?php
+                function pre_r($array){
+                    echo '<pre>';
+                    print_r($array);
+                    echo '<pre>';
+                }
+                ?>
+            <div id="div-num-pagina">
+                <?php    
                 //Paginção - com soma de quantidade de utilizadores
-                $result_pag = "SELECT COUNT(id) AS num_result FROM utilizadores";
-                $resultado_pag = mysqli_query($conn, $result_pag);
+                $result = "SELECT COUNT(id) AS num_result FROM utilizadores";
+                $resultado_pag = mysqli_query($mysqli, $result);
                 $row_pg = mysqli_fetch_assoc($resultado_pag);
 
                 //Quantidade de pagina 
@@ -154,13 +126,79 @@
 
                 echo "<a href='../views/utilizador.php?pagina=$qt_pag'>Ultima</a>";
                         ?>
-              </div>
-      </div>
-    
-  </div>
+            </div>
+      <br> 
+        <div id="div-form-utilizador">
+       <fieldset><legend><b>REGISTRO DE UTILIZADORES</b></legend><br>     
+        <div class="col-sm-6">    
+            <form action="../controllers/processautilizador.php" method="POST">
+                    <div class="uilizador esquerda">     
+
+                             <div class=""> 
+                                 <input type="hidden" name="id" value="<?php echo $id; ?>"> </div>
+                        <br>
+                             <div class=""><label>Utilizador:</label>
+                                 <input type="text" name="utilizador" class="form-control" value="<?php echo $utilizador; ?>" placeholder="Nome de Utilizador"></div>
+                        <br>
+                             <div class=""><label>email:</label>
+                                 <input type="email" name="email" class="form-control" value="<?php echo $email; ?>"placeholder="email@exemplo.com"></div>
+                        <br>
+                             <div class=""><label>Senha:</label>
+                                 <input type="password" name="senha" class="form-control" value="<?php echo $senha; ?>" placeholder="********"></div>
+
+                     </div>   
+                
+                
+                    <div class="direita">
+                            <div class=""><label>Situação:</label>
+                                <input type="text" name="situacoe_id" class="form-control" value="<?php echo $situacoe_id; ?>" placeholder="situação"></div>
+                        <br>
+                            <div class="">
+                                <label>Niveil de Acesso:</label>
+                                <input type="text" name="niveis_acesso_id" class="form-control" value="<?php echo $niveis_acesso_id; ?>" placeholder="Nivel de Acesso"></div>
+                                <br>
+                    </div>
+               
+                    <div class="direita">
+
+                            <div class=""> <label>Data Criação:</label>
+                                <input type="datetime" name="dt_criacao" class="form-control" value="<?php echo $dt_criacao; ?>" placeholder="Data de Criação"></div>
+                                <br>
+                           <div class="">
+                                <label>Data Modificação:</label>
+                                <input type="datetime" name="dt_modificacao" class="form-control" value="<?php echo $dt_modificacao; ?>" placeholder="Data de Modificação"></div> 
+                    </div>
+                
+                         
+                         <br>
+                
+                    <div class="esquerda">
+                        
+                          <?php 
+                          //alterar o botão para atualizar
+                          if ($update == true):
+
+                          ?>
+                        <br>
+                       <button type="submit" class="btn-sav" name="update">Atualizar</button>
+                       
+                       <?php else: ?><br>
+                       <button type="submit" class="btn-sav" name="guardar">Guardar</button>
+                       <button type="reset" class="btn-sav" name="limpar">Limpar</button>
+                       
+                       <?php endif;?>
+
+                       </div>                          
+        
+            </form>
+            
+       </fieldset>
+        </div>
+        </div>  
+
     <footer>
         <?php include("../libraries/footer.php") ?>
-        
+   
     </footer>
 
 </div>

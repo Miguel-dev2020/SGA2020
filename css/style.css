@@ -66,7 +66,7 @@ body{
     top: 10px;
     z-index: 4;
 }
-/*css aplicavél a outro tags*/
+/*css aplicavél a diferentes tags*/
 li{
     list-style: none; 
     background:#F0F0F0; 
@@ -109,6 +109,7 @@ li:hover ul li a:hover {
     float: left;
     background-color: #F0F0F0;
 }
+/*css aplicavél ao div de rodapé*/
 #div-contener footer {
     width: 1024px;
     height: 50px;
@@ -120,12 +121,13 @@ li:hover ul li a:hover {
     color: #F0F0F0;
 }
 
-
+/*css aplicavél ao cabeçalho*/
 .header {
   background-color: #3c7f7b;
   padding: 20px;
   text-align: center;
 }
+/*css aplicavél ao form de login*/
 #login{
     width: 250px;
     margin: 0 auto;
@@ -134,6 +136,7 @@ li:hover ul li a:hover {
     border: 1px solid #3c7f7b;
     padding: 10px;  
 }
+/*css aplicavél ao logotipo*/
 .s-logo{
   width: 200px;
   height: 52px;
@@ -220,7 +223,7 @@ li:hover ul li a:hover {
 
 #table th {
   background-color: #E8EFE4;
-  color: white;
+  color: wheat;
 }
 /* estilos para form pesquisa de utilizadores*/
 #div-contener #div-conteudo #form-pesq{
@@ -251,17 +254,17 @@ li:hover ul li a:hover {
 
     a:visited{
     text-decoration:none;
-    color:red;
+    color:royalblue;
     }
 
     a:hover{
     text-decoration:none;
-    color:pink;
+    color:red;
     }
 
     a:active{
     text-decoration:none;
-    color:green;
+    color:greenyellow;
     }
 
 /*estilos de form registro utilizadores */
@@ -276,18 +279,22 @@ li:hover ul li a:hover {
             margin: 0 8px;
         }
 
-     #div-contener  #div-conteudo #div-form-utilizador .direita {
+.direita {
             float: right;
             width:50%;
 
         }
 
-     #div-contener  #div-conteudo #div-form-utilizador  .esquerda {
+ .esquerda {
             float: left;
             width:50%;
 
         }
+ .centro {
+            float: center;
+            width:50%;
 
+        }
     #div-contener  #div-conteudo #div-form-utilizador  label {
             line-height: 30px;
             text-align:left;
@@ -302,7 +309,7 @@ li:hover ul li a:hover {
             color:#363636;
         }
 
-     #div-contener  #div-conteudo #div-form-utilizador  select {
+#div-contener  #div-conteudo #div-form-utilizador  select {
             padding: 9px;
             border: 1px solid #CCCCCC;
             background: #E8EFE4;
@@ -310,27 +317,57 @@ li:hover ul li a:hover {
             color:#363636;
         }
 
-     #div-contener   #div-conteudo #div-form-utilizador  .botao {
+.btn-sav {
             cursor: pointer;
-            text-align: left;
+            font-size: 15px;
+            text-align: center;
             margin: 0 0 0 0;
             color: #FFF;
-            background-color: #45543D;
+            background-color: #3C7F7D;
         }
 
-      #div-contener  #div-conteudo #div-form-utilizador  .botao:hover {
-            background-color: #354030;
+.btn-sav:hover {
+            background-color: blue;
+        }
+.btn-ed {
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            margin: 0 0 0 0;
+            color: white;
+            background-color: darkseagreen;
         }
 
+.btn-ed:hover {
+            background-color: darksalmon;
+        }
+.btn-del {
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            margin: 0 0 0 0;
+            color: white;
+            background-color: red;
+        }
+
+.btn-del:hover {
+            background-color: cadetblue;
+        }       
+.alert{
+      font-size: 15px;
+      text-align: center; 
+      color: red;
+        } 
+        
      #div-contener  #div-conteudo #div-form-utilizador copy {
             color: #363636;
             text-align: center;
             margin: 50px 150px;
         }
-/**/
-    #div-contener  #div-conteudo #div-regist-ut #div-num-pagina {
+/*Estilo aplicavel a paginação*/
+ #div-num-pagina {
             text-align: center;
-            font-size: 20px;
+            font-size: 15px;
         }
 /**/
 #div-contener #div-conteudo .novo{

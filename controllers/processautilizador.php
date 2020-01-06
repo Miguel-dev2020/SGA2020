@@ -1,10 +1,10 @@
 <?php
 //start de sessão
-session_start();
+//session_start();
 //conexão com a base de dados
-$mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+    $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
     $id=0;
-    $upd = false;
+    $update = false;
     //atribuir o valor vaziu para os campos do formulário
     $utilizador = '';
     $email = '';
@@ -13,7 +13,7 @@ $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($my
     $niveis_acesso_id = '';
     $dt_criacao = '';
     $dt_modificacao = '';
-    if (isset($_POST['Registrar'])){
+    if (isset($_POST['guardar'])){
         $utilizador = $_POST['utilizador'];
         $email = $_POST['email'];
         $senha = $_POST['senha'];
@@ -26,15 +26,15 @@ $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($my
         $_SESSION['msg_type'] = "success!";
 
         //Voltar para a pagina index
-        header("location: utilizador.php");
+        header("location: ../views/utilizador.php");
         
         //enviar dados para a base de dados  
             $mysqli->query("INSERT INTO utilizadores (utilizador, email, senha, situacoe_id, niveis_acesso_id, dt_criacao, dt_modificacao)VALUES('$utilizador', '$email', '$senha', '$situacoe_id', '$niveis_acesso_id', '$dt_criacao', '$dt_modificacao')") 
                     or die($mysqli->error);
     }
     //apagar dados da base de dados 
-    if (isset($_GET['del'])){
-        $id = $_GET['del'];
+    if (isset($_GET['delete'])){
+        $id = $_GET['delete'];
         $mysqli->query("DELETE FROM utilizadores WHERE id = $id") or die($mysqli->error());
         
         //mensagem do resgistro guardado
@@ -42,13 +42,13 @@ $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($my
         $_SESSION['msg_type'] = "danger!";
 
         //Voltar para a pagina index
-        header("location: utilizador.php");
+        header("location: ../views/utilizador.php");
     } 
     
     //veficar o botão fazer comparação e atualizar registro na base de dados 
-    if (isset($_GET['upd'])){
-        $id = $_GET['upd'];
-        $upd = true;
+    if (isset($_GET['edit'])){
+        $id = $_GET['edit'];
+        $update = true;
         $result = $mysqli->query("SELECT * FROM utilizadores WHERE id = $id") or die($mysqli->error());
         if(count($result)==1){
             $row = $result->fetch_array();
@@ -62,7 +62,7 @@ $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($my
         
     }
     }
-    if (isset($_POST['upd'])){
+    if (isset($_POST['update'])){
         $id = $_POST['id'];
         $utilizador = $_POST['utilizador'];
         $email = $_POST['email'];
@@ -76,9 +76,9 @@ $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($my
         $mysqli->query("UPDATE utilizadores SET utilizador='$utilizador', email='$email', senha='$senha', situacoe_id='$situacoe_id', niveis_acesso_id='$niveis_acesso_id', dt_criacao='$dt_criacao', dt_modificacao='$dt_modificacao' WHERE id=$id") or die($mysqli->error);
     
         //mensagem do resgistro guardado
-        $_SESSION['message'] = "Registro foi bem atualizado!"; 
+        $_SESSION['message'] = "Utilizador foi bem atualizado!"; 
         $_SESSION['msg_type'] = "warning!";
         //Voltar para a pagina index
-        header("location: utilizador.php");
+        header("location: ../views/utilizador.php");
     }
 ?>
