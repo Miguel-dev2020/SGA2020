@@ -37,12 +37,12 @@
   <div id="div-menu-vert">
          <?php include("../libraries/menu.php")?>
   </div>
-  <div id="div-conteudo"> 
+  <div id="div-conteudo">
       <br><?php 
         //Mensagem de Alerta
         
         if (isset($_SESSION['message'])): ?>
-        <div class="alert alert-<?=$_SESSION['msg_type']?>">
+        <div class="alert alert-<?=$_SESSION['msg_type']?> style='color:brown'">
             
             <?php 
              echo $_SESSION['message'];
@@ -140,7 +140,7 @@
                              <div class=""><label>Utilizador:</label>
                                  <input type="text" name="utilizador" class="form-control" value="<?php echo $utilizador; ?>" placeholder="Nome de Utilizador"></div>
                         <br>
-                             <div class=""><label>email:</label>
+                             <div class=""><label>Email:</label>
                                  <input type="email" name="email" class="form-control" value="<?php echo $email; ?>"placeholder="email@exemplo.com"></div>
                         <br>
                              <div class=""><label>Senha:</label>

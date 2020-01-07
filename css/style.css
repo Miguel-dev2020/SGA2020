@@ -1,5 +1,6 @@
 /*inportação do bootstrap*/
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+   
 /*css aplicavel a todo o sistema*/
 *{
     margin: 0px;
@@ -223,7 +224,7 @@ li:hover ul li a:hover {
 
 #table th {
   background-color: #E8EFE4;
-  color: wheat;
+  color: gray;
 }
 /* estilos para form pesquisa de utilizadores*/
 #div-contener #div-conteudo #form-pesq{
@@ -237,6 +238,9 @@ li:hover ul li a:hover {
         }
 #div-contener #form-pesq input {
             align:center;
+            background-color: #E8EFE4;
+            color: darkcyan;
+            font-size: 13px;
             
         }
 #div-contener #div-conteudo #form-pesq legend{
@@ -274,7 +278,7 @@ li:hover ul li a:hover {
           font-size: 15px;
           padding: 5px;
           }
-     #div-contener  #div-conteudo #div-form-utilizador {
+#div-contener  #div-conteudo #div-form-utilizador {
             text-align: left;
             margin: 0 8px;
         }
@@ -295,13 +299,13 @@ li:hover ul li a:hover {
             width:50%;
 
         }
-    #div-contener  #div-conteudo #div-form-utilizador  label {
+#div-contener  #div-conteudo #div-form-utilizador  label {
             line-height: 30px;
             text-align:left;
             color:#363636;
         }
 
-    #div-contener   #div-conteudo #div-form-utilizador  input {
+#div-contener   #div-conteudo #div-form-utilizador  input {
             padding: 9px;
             border: 1px solid #CCCCCC;
             background: #E8EFE4;

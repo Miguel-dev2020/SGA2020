@@ -3,11 +3,11 @@ if(isset($_POST['search']))
 {
  $procurar = $_POST['procurar'];
  $query = "select * from utilizadores WHERE CONCAT(`id`, `utilizador`, `email`, `situacoe_id`, `niveis_acesso_id`, `dt_criacao`, `dt_modificacao`) LIKE '%".$procurar."%'";
- $search_resul = filterTable($query);
+ $search_result = filterTable($query);
 }
 else{
     $query = "select * from utilizadores";
-    $search_resul = filterTable($query);
+    $search_result = filterTable($query);
 }
     function filterTable($query){
         $connect = mysqli_connect("localhost", "root", "", "bd-sga")or trigger_error(mysql_error(),E_USER_ERROR);
@@ -32,8 +32,9 @@ else{
    </div>
   <div id="div-menu-vert">
          <?php include("../libraries/menu.php")?>
-  </div>
+  </div>  
   <div id="div-conteudo">
+      <!-- formulario de pesquisa -->
       <div class="pesquisa">
       <form id="form-pesq" action="../views/administracao.php" method="POST">
           
@@ -42,6 +43,7 @@ else{
             <input type="submit" name="search" value="Procurar">
       
         <br><br>
+        <!-- tabela com lista de dados -->
         <table id="table" bordercolor="#3e2c34">
             <tr>
               <td>Id</td>
@@ -53,7 +55,7 @@ else{
               <td>Data de Modificação</td>
               <td>Acções</td>
             </tr>
-              <?php while($row = mysqli_fetch_array($search_resul)):?>
+              <?php while($row = mysqli_fetch_array($search_result)):?>
               <tr>
                 <td><?php echo $row['id'];?></td>
                   <td><?php echo $row['utilizador'];?></td>
@@ -71,9 +73,18 @@ else{
               <div class="novo"><br><p><a href="../views/utilizador.php"><i class="fa fa-user-plus" aria-hidden="true"> Novo </i></a></p><br></div>
           </div>
     </fieldset></form>
+      <!-- janea modal para edição de dados -->
+      <div class="modal-fade" id="modalEdit" tabindex="-1" aria-labelledby="exempleModelLabel" aria-hidden="true">
+          
+      </div>
+      <!-- jquery, popper.js, bootstrap.js -->
+      <script src="jquery/jquery-3.3.1.min.js"></script>
+      <script src="popper/popper.min.js"></script>
+      <script src="bootstrap/js/bootstrap.min.js"></script>
       
-
-    
+      <!-- datatables.js -->
+      <script type="text/javascript" src="datatables/datatables.min.js"></script>
+      <script type="text/javascript" src="min.js"></script>
     
     
   </div>

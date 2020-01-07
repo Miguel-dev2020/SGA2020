@@ -18,7 +18,7 @@
       <form method="POST" action="../views/validacao.php">
         <img src="../img/logotipo-SGA.png" alt="<?php echo $title;?>" title="<?php echo $title;?>" width="250" height="70" />
         <label for="Email" ><i class="fa fa-user" aria-hidden="true"></i> Email</label>
-        <input type="email" name="email" id="Email" class="txt bradius" placeholder="nome-exemplo@me.gov.cv" required autofocus>
+        <input type="email" name="email" id="Email" class="txt bradius" placeholder="nome-utilizador@me.gov.cv" required autofocus>
         <label for="Password" ><i class="fa fa-lock" aria-hidden="true"></i> Senha</label>
         <input type="password" name="senha" id="Password" class="txt bradius" placeholder="******************" required>
         <button class="btn bradius" type="submit">Entrar</button>
