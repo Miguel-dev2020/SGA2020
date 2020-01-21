@@ -37,7 +37,7 @@
           
         type: 'line',
         data:{
-        labels: ["2019","2020","2021","2019"],
+        labels: ["2019","2020","2021","2022"],
         datasets: [
             {
              labels: "EMISSÃO DE ALVARÁ - 2020",
@@ -48,7 +48,7 @@
                            
         },
         {
-             labels: "EMISSÃO DE ALVARÁ - 2020",
+             labels: "EMISSÃO DE ALVARÁ - 2021",
              data: [9,10,7,10,30],
              borderWidth: 6,
              borderColor: 'rgba(255,100,255,0.85)',

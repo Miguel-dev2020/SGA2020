@@ -30,7 +30,8 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
       <br>
 	<div class="container theme-showcase" role="main">
 			<div class="page-header">
-				<h3>Utilizadores do Sistema</h3>
+                            
+                               <h1> <i class="fas fa-user-cog"> UTILIZADORES DO SISTEMA</i></h1>
 			</div>
 			<div class="pull-right">
 				<button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#myModalcad">Criar Novo</button>
@@ -40,8 +41,9 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title text-center" id="myModalLabel">Registrar Utilizador</h4>
+							<h4 class="modal-title" id="myModalLabel">Registrar Utilizador</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							
 						</div>
 						<div class="modal-body">
                                                     <form method="POST" action="../controllers/processa-registrar.php" enctype="multipart/form-data">
@@ -85,7 +87,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 			<!-- Fim Modal -->
 			
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-12">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -123,8 +125,9 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												
 												<h4 class="modal-title text-center" id="myModalLabel"><?php echo $rows_utilizadores['utilizador']; ?></h4>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 											</div>
 											<div class="modal-body">
 												<p><?php echo $rows_utilizadores['id']; ?></p>
@@ -154,8 +157,9 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="exampleModalLabel">Utilizadores</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						
 					</div>
 					<div class="modal-body">
                                             <form method="POST" action="../controllers/processa-utilizadores.php" enctype="multipart/form-data">
@@ -193,7 +197,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 							<input name="id" type="hidden" id="id">
 							<div class="modal-footer">
 								<button type="button" class="btn-primary" data-dismiss="modal">Cancelar</button>
-								<button type="submit" class="btn-danger">Atualizar</button>
+								<button type="submit" class="btn-danger">Alterar</button>
 							</div>
 						</form>
 					</div>			  
@@ -227,7 +231,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 				var modal = $(this)
 				modal.find('.modal-title').text('#Nº: ' + recipient)
 				modal.find('#id').val(recipient)
-				modal.find('#recipient-utilizador').val(recipientutilizador)
+                                modal.find('#recipient-utilizador').val(recipientutilizador)
 				modal.find('#recipient-email').val(recipientemail)
 				modal.find('#recipient-senha').val(recipientsenha)
 				modal.find('#recipient-situacoe').val(recipientsituacoe)
