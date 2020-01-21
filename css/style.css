@@ -169,7 +169,7 @@ li:hover ul li a:hover {
   webkit-box-shadow: 0 2px 10px #727272;
   moz-box-shadow: 0 2px 10px #727272;
 }
-.btn{
+/*.btn{
     display: block;
     border: none;
     width: 255px;
@@ -184,7 +184,7 @@ li:hover ul li a:hover {
         color: #FFFFFF;
     
 }
-/*Classe de herança*/
+Classe de herança*/
 
 .bradius{
     border-radius: 6px;
@@ -203,7 +203,7 @@ li:hover ul li a:hover {
     webkit-transition: all 0.3s linear;
     moz-transition: all 0.3s linear;
 }
-/* estilos para tabela*/
+/* estilos para tabela
 #table{
     
     border-collapse: collapse;
@@ -225,7 +225,7 @@ li:hover ul li a:hover {
 #table th {
   background-color: #E8EFE4;
   color: gray;
-}
+}*/
 /* estilos para form pesquisa de utilizadores*/
 #div-contener #div-conteudo #form-pesq{
             align:left;
@@ -320,7 +320,7 @@ li:hover ul li a:hover {
             border-radius: 4px;
             color:#363636;
         }
-
+/*
 .btn-sav {
             cursor: pointer;
             font-size: 15px;
@@ -384,3 +384,155 @@ li:hover ul li a:hover {
         padding-right: 10px;
         
         }
+/*Css janela Modal
+.modal {
+  position: fixed;
+  top: 20%;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  background:rgba(0,0,0,0.8);
+  z-index: 99999;
+  opacity:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+.modal:target {
+  opacity: 10;
+  pointer-events: auto;
+}
+
+.modal > div {
+  width: 400px;
+  position: relative;
+  margin: 10% auto;
+  padding: 15px 20px;
+  background: #000;
+}
+.fechar {
+  position: absolute;
+  width: 30px;
+  right: -15px;
+  top: -20px;
+  text-align: center;
+  line-height: 30px;
+  margin-top: 5px;
+  background: #ff4545;
+  border-radius: 50%;
+  font-size: 20px;
+  color: black;
+}*/
+/*Css fieldsat
+.fieldset 
+	{
+		border: 1px solid #ddd !important;
+		margin: 0;
+		xmin-width: 0;
+		padding: 10px;       
+		position: relative;
+		border-radius:4px;
+		background-color:#f5f5f5;
+		padding-left:10px!important;
+	}	
+	
+.legend
+		{
+			font-size:14px;
+			font-weight:bold;
+			margin-bottom: 0px; 
+			width: 35%; 
+			border: 1px solid #ddd;
+			border-radius: 4px; 
+			padding: 5px 5px 5px 10px; 
+			background-color: #ffffff;
+		}
+       */         
+/*Login bootstrap */     
+body {
+            background: #f0f0f0 !important;
+        }
+        .card {
+            border: 2px solid #3C7D7F;
+        }
+        .card-login {
+            margin-top: 130px;
+            padding: 18px;
+            max-width: 30rem;
+        }
+
+        .card-header {
+            color: #bbb;
+            background: #fff;
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: 600 !important;
+            margin-top: 10px;
+            border-bottom: 0;
+        }
+
+        .input-group-prepend span{
+            width: 50px;
+            background-color: #ff0000;
+            color: #fff;
+            border:0 !important;
+        }
+
+        input:focus{
+            outline: 0 0 0 0  !important;
+            box-shadow: 0 0 0 0 !important;
+        }
+
+        .login_btn{
+            width: 120px;
+        }
+
+        .login_btn:hover{
+            color: #fff;
+            background-color: #ff0000;
+        }
+
+        .btn-outline-danger {
+            color: #fff;
+            font-size: 20px;
+            background-color: #3C7D7F;
+            background-image: none;
+            border-color: #3C7D7F;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #3C7D7F;
+            background-color: transparent;
+            background-clip: padding-box;
+            border: 1px solid #3C7D7F;
+            border-radius: 0;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .input-group-text {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            margin-bottom: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.6;
+            color: #495057;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 0;
+        }
+        
+ 

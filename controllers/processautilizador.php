@@ -2,7 +2,7 @@
 //start de sessão
 //session_start();
 //conexão com a base de dados
-    $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+$mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
     $id=0;
     $update = false;
     //atribuir o valor vaziu para os campos do formulário
@@ -16,14 +16,14 @@
     if (isset($_POST['guardar'])){
         $utilizador = $_POST['utilizador'];
         $email = $_POST['email'];
-        $senha = $_POST['senha'];
+        $senha = md5($_POST['senha']);
         $situacoe_id = $_POST['situacoe_id'];
         $niveis_acesso_id = $_POST['niveis_acesso_id'];
         $dt_criacao = $_POST['dt_criacao'];
         $dt_modificacao = $_POST['dt_modificacao'];
         //mensagem do resgistro guardado
-        $_SESSION['message'] = "Utilizador foi bem registrado!"; 
-        $_SESSION['msg_type'] = "success!";
+        $_SESSION['message'] = "O seu registro foi bem guardado!"; 
+        $_SESSION['msg_type'] = "success";
 
         //Voltar para a pagina index
         header("location: ../views/utilizador.php");
@@ -38,8 +38,8 @@
         $mysqli->query("DELETE FROM utilizadores WHERE id = $id") or die($mysqli->error());
         
         //mensagem do resgistro guardado
-        $_SESSION['message'] = "Utilizador foi bem eliminado!"; 
-        $_SESSION['msg_type'] = "danger!";
+        $_SESSION['message'] = "Um registro foi bem eliminado!"; 
+        $_SESSION['msg_type'] = "danger";
 
         //Voltar para a pagina index
         header("location: ../views/utilizador.php");
@@ -76,8 +76,8 @@
         $mysqli->query("UPDATE utilizadores SET utilizador='$utilizador', email='$email', senha='$senha', situacoe_id='$situacoe_id', niveis_acesso_id='$niveis_acesso_id', dt_criacao='$dt_criacao', dt_modificacao='$dt_modificacao' WHERE id=$id") or die($mysqli->error);
     
         //mensagem do resgistro guardado
-        $_SESSION['message'] = "Utilizador foi bem atualizado!"; 
-        $_SESSION['msg_type'] = "warning!";
+        $_SESSION['message'] = "O seu registro foi bem atualizado!"; 
+        $_SESSION['msg_type'] = "warning";
         //Voltar para a pagina index
         header("location: ../views/utilizador.php");
     }

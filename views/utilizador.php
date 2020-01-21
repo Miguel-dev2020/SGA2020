@@ -1,36 +1,25 @@
-<?php //require_once("../views/connect.php");?>
+<?php require_once("../views/connect.php");
+
+$result_utilizadores = "SELECT * FROM utilizadores";
+$resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
+?>
 <?php require_once '../controllers/processautilizador.php'; ?>
+
 <!doctype html>
 <html>
 
 <head>
     <title>SGA - Administração de Utilizadores</title>
+    <!-- chamada do cabeçalho-->
     <?php include("../libraries/header.php")?>
-
+    
 </head>
 
 <body>
 
     
 <div id="div-contener">
-     <?php 
-        //Receber o número da página
-		$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT);		
-		$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
-		
-		//Setar a quantidade de itens por pagina
-		$qt_result_pag = 3;
-		
-		//calcular o inicio visualização
-		$inicio = ($qt_result_pag * $pagina) - $qt_result_pag;
-                
-                
-        $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
-        $result = $mysqli->query("SELECT * FROM utilizadores LIMIT $inicio, $qt_result_pag")or die ($mysqli->error);
-        //$result = $mysqli->query("SELECT * FROM utilizadores") or die ($mysqli->error);
-        //pre_r($result);
-        //pre_r($result ->fetch_assoc());
-        ?>
+     
   <div id="div-header">
          <?php include("../libraries/body.php")?>
    </div>
@@ -38,169 +27,224 @@
          <?php include("../libraries/menu.php")?>
   </div>
   <div id="div-conteudo">
-      <br><?php 
-        //Mensagem de Alerta
+      <br>
+	<div class="container theme-showcase" role="main">
+			<div class="page-header">
+				<h3>Utilizadores do Sistema</h3>
+			</div>
+			<div class="pull-right">
+				<button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#myModalcad">Criar Novo</button>
+			</div>
+			<!-- Inicio Modal -->
+			<div class="modal fade" id="myModalcad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title text-center" id="myModalLabel">Registrar Utilizador</h4>
+						</div>
+						<div class="modal-body">
+                                                    <form method="POST" action="../controllers/processa-registrar.php" enctype="multipart/form-data">
+								<div class="form-group">
+									<label for="recipient-utilizador" class="control-label">Utilizador:</label>
+									<input name="utilizador" type="text" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="recipient-email" class="control-label">Email:</label>
+									<input name="email" type="email" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="recipient-senha" class="control-label">Senha:</label>
+									<input name="senha" type="password" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="recipient-situacoe" class="control-label">Situação:</label>
+									<input name="situacoe_id" type="text" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="recipient-niveisacesso" class="control-label">Nivel de Acesso:</label>
+									<input name="niveis_acesso_id" type="text" class="form-control">
+								</div>
+								
+								<div class="form-group">
+									<label for="recipient-data" class="control-label">Data de criação:</label>
+									<input name="dt_criacao" type="datetime" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="recipient-data" class="control-label">Data de Modificaçao:</label>
+									<input name="dt_modificacao" type="datetime" class="form-control">
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn-success">Registrar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Fim Modal -->
+			
+			<div class="row">
+				<div class="col-md-9">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#Nº</th>
+								<th>Utilizador</th>
+								<th>Email</th>
+								<th>Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php while($rows_utilizadores = mysqli_fetch_assoc($resultado_utilizadores)){ ?>
+								<tr>
+									<td><?php echo $rows_utilizadores['id']; ?></td>
+									<td><?php echo $rows_utilizadores['utilizador']; ?></td>
+									<td><?php echo $rows_utilizadores['email']; ?></td>
+									<td>
+										<button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#myModal<?php echo $rows_utilizadores['id']; ?>">Ver</button>
+										
+										<button type="button" class="btn-xs btn-warning" data-toggle="modal" data-target="#exampleModal" 
+										data-whatever="<?php echo $rows_utilizadores['id']; ?>" 
+										data-whateverutilizador="<?php echo $rows_utilizadores['utilizador']; ?>"  
+										data-whateveremail="<?php echo $rows_utilizadores['email']; ?>"
+										data-whateversenha="<?php echo $rows_utilizadores['senha']; ?>"
+										data-whateversituacoe="<?php echo $rows_utilizadores['situacoe_id']; ?>"
+										data-whatevernivelacesso="<?php echo $rows_utilizadores['niveis_acesso_id']; ?>"
+										data-whateverdatacriacao="<?php echo $rows_utilizadores['dt_criacao']; ?>"
+										data-whateverdatamodificacao="<?php echo $rows_utilizadores['dt_modificacao']; ?>"
+										>Editar</button>
+										
+                                                                                <a href="../controllers/processa-eliminar.php?id=<?php echo $rows_utilizadores['id']; ?>"><button type="button" class="btn-xs btn-danger">Eliminar</button></a>
+									</td>
+								</tr>
+								<!-- Inicio Modal -->
+								<div class="modal fade" id="myModal<?php echo $rows_utilizadores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title text-center" id="myModalLabel"><?php echo $rows_utilizadores['utilizador']; ?></h4>
+											</div>
+											<div class="modal-body">
+												<p><?php echo $rows_utilizadores['id']; ?></p>
+												<p><?php echo $rows_utilizadores['utilizador']; ?></p>
+												<p><?php echo $rows_utilizadores['email']; ?></p>
+												<p><?php echo $rows_utilizadores['senha']; ?><p>
+												<p><?php echo $rows_utilizadores['situacoe_id']; ?><p>
+												<p><?php echo $rows_utilizadores['niveis_acesso_id']; ?><p>
+												<p><?php echo $rows_utilizadores['dt_criacao']; ?><p>
+												<p><?php echo $rows_utilizadores['dt_modificacao']; ?><p>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Fim Modal -->
+							<?php } ?>
+						</tbody>
+					 </table>
+				</div>
+			</div>		
+		</div>
+		
+		
+	
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="exampleModalLabel">Utilizadores</h4>
+					</div>
+					<div class="modal-body">
+                                            <form method="POST" action="../controllers/processa-utilizadores.php" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="recipient-utilizador" class="control-label">Utilizador:</label>
+								<input name="utilizador" type="text" class="form-control" id="recipient-utilizador">
+							</div>
+							<div class="form-group">
+								<label for="recipient-email" class="control-label">Email:</label>
+								<input name="email" type="email" class="form-control" id="recipient-email">
+							</div>
+							<div class="form-group">
+								<label for="recipient-senha" class="control-label">Senha:</label>
+								<input name="senha" type="password" class="form-control" id="recipient-senha">
+							</div>
+							<div class="form-group">
+									<label for="recipient-situacoe" class="control-label">Situação:</label>
+									<input name="situacoe_id" type="text" class="form-control" id="recipient-situacoe">
+								</div>
+							
+							<div class="form-group">
+									<label for="recipient-nivelacesso" class="control-label">Nível de Acesso:</label>
+									<input name="niveis_acesso_id" type="text" class="form-control" id="recipient-nivelacesso">
+								</div>
+							
+							
+							<div class="form-group">
+								<label for="recipient-datacriacao" class="control-label">Data de Criaçao:</label>
+								<input name="dt_criacao" type="datetime" class="form-control" id="recipient-datacriacao">
+							</div>
+							<div class="form-group">
+								<label for="recipient-datamodificacao" class="control-label">Data de Modificação:</label>
+								<input name="dt_modificacao" type="datetime" class="form-control" id="recipient-datamodificacao">
+							</div>
+							<input name="id" type="hidden" id="id">
+							<div class="modal-footer">
+								<button type="button" class="btn-primary" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn-danger">Atualizar</button>
+							</div>
+						</form>
+					</div>			  
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$('#exampleModal').on('show.bs.modal', function (event) {
+				var button = $(event.relatedTarget) // Button that triggered the modal
+				var recipient = button.data('whatever') // Extract info from data-* attributes
+				var recipientutilizador = button.data('whateverutilizador')
+				var recipientemail = button.data('whateveremail')
+				var recipientsenha = button.data('whateversenha')
+				var recipientsituacoe = button.data('whateversituacoe')
+				var recipientnivelacesso = button.data('whatevernivelacesso')
+				var recipientdatacriacao = button.data('whateverdatacriacao')
+				var recipientdatamodificaca = button.data('whateverdatamodificacao')
+				
+				
+				// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+				// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+				var modal = $(this)
+				modal.find('.modal-title').text('#Nº: ' + recipient)
+				modal.find('#id').val(recipient)
+				modal.find('#recipient-utilizador').val(recipientutilizador)
+				modal.find('#recipient-email').val(recipientemail)
+				modal.find('#recipient-senha').val(recipientsenha)
+				modal.find('#recipient-situacoe').val(recipientsituacoe)
+				modal.find('#recipient-nivelacesso').val(recipientnivelacesso)
+				modal.find('#recipient-datacriacao').val(recipientdatacriacao)
+				modal.find('#recipient-datamodificacao').val(recipientdatamodificaca)
+				
+			})
+		</script>
+      
+      <!-- PAGINAÇÃO-->
         
-        if (isset($_SESSION['message'])): ?>
-        <div class="alert alert-<?=$_SESSION['msg_type']?> style='color:brown'">
-            
-            <?php 
-             echo $_SESSION['message'];
-             unset($_SESSION['message']); 
-            ?>
-        </div>
-        <?php endif ?>
-                       
-              <div id="div-form-utilizador">                  
-                  <br>
-                  <fieldset><legend><b>LISTA DE UTILIZADORES</b></legend><br>
-            <table id="table">
-                <thead>
-                    <tr>
-                        <th>Utilizador</th>
-                        <th>Email</th>
-                        <th>Data Criação</th>
-                        <th>Situação</th>
-                        <th>Nivel de Acesso</th>
-                        <th>Data Modificação</th>
-                        <th colspan="2">Ações</th>
-                    </tr>
-                </thead>
-                <?php 
-                        while ($row = $result->fetch_assoc()):?>
-                <tr>
-                    <td><?php echo $row['utilizador']; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['dt_criacao']; ?></td>
-                    <td><?php echo $row['situacoe_id']; ?></td>
-                    <td><?php echo $row['niveis_acesso_id']; ?></td>
-                    <td><?php echo $row['dt_modificacao']; ?></td>
-                    <td>
-                        <a href="../views/utilizador.php?edit=<?php echo $row['id']; ?>"
-                           class="btn-ed">Edit</a> |
-                           <a href="../controllers/processautilizador.php?delete=<?php echo $row['id']; ?>"
-                           class="btn-del">Del</a>
-                    </td>
-                        
-                    
-                </tr>
-                <?php endwhile; ?>
-            </table>
-                  </fieldset><br>
-        </div>
-        
-                <?php
-                function pre_r($array){
-                    echo '<pre>';
-                    print_r($array);
-                    echo '<pre>';
-                }
-                ?>
-            <div id="div-num-pagina">
-                <?php    
-                //Paginção - com soma de quantidade de utilizadores
-                $result = "SELECT COUNT(id) AS num_result FROM utilizadores";
-                $resultado_pag = mysqli_query($mysqli, $result);
-                $row_pg = mysqli_fetch_assoc($resultado_pag);
-
-                //Quantidade de pagina 
-                $qt_pag = ceil($row_pg['num_result'] / $qt_result_pag);
-
-                //Limitação dos links antes e depois
-                $registro = 2;
-                echo "<a href='../views/utilizador.php?pagina=1'>Primeira</a> ";
-
-                for($pag_ant = $pagina - $registro; $pag_ant <= $pagina - 1; $pag_ant++){
-                    if($pag_ant >= 1){
-                        echo "<a href='../views/utilizador.php?pagina=$pag_ant'>$pag_ant</a> ";
-                    }
-                }
-
-                echo "$pagina ";
-
-                for($pag_seg = $pagina + 1; $pag_seg <= $pagina + $registro; $pag_seg++){
-                    if($pag_seg <= $qt_pag){
-                        echo "<a href='../views/utilizador.php?pagina=$pag_seg'>$pag_seg</a> ";
-                    }
-                }
-
-                echo "<a href='../views/utilizador.php?pagina=$qt_pag'>Ultima</a>";
-                        ?>
-            </div>
-      <br> 
-        <div id="div-form-utilizador">
-       <fieldset><legend><b>REGISTRO DE UTILIZADORES</b></legend><br>     
-        <div class="col-sm-6">    
-            <form action="../controllers/processautilizador.php" method="POST">
-                    <div class="uilizador esquerda">     
-
-                             <div class=""> 
-                                 <input type="hidden" name="id" value="<?php echo $id; ?>"> </div>
-                        <br>
-                             <div class=""><label>Utilizador:</label>
-                                 <input type="text" name="utilizador" class="form-control" value="<?php echo $utilizador; ?>" placeholder="Nome de Utilizador"></div>
-                        <br>
-                             <div class=""><label>Email:</label>
-                                 <input type="email" name="email" class="form-control" value="<?php echo $email; ?>"placeholder="email@exemplo.com"></div>
-                        <br>
-                             <div class=""><label>Senha:</label>
-                                 <input type="password" name="senha" class="form-control" value="<?php echo $senha; ?>" placeholder="********"></div>
-
-                     </div>   
-                
-                
-                    <div class="direita">
-                            <div class=""><label>Situação:</label>
-                                <input type="text" name="situacoe_id" class="form-control" value="<?php echo $situacoe_id; ?>" placeholder="situação"></div>
-                        <br>
-                            <div class="">
-                                <label>Niveil de Acesso:</label>
-                                <input type="text" name="niveis_acesso_id" class="form-control" value="<?php echo $niveis_acesso_id; ?>" placeholder="Nivel de Acesso"></div>
-                                <br>
-                    </div>
-               
-                    <div class="direita">
-
-                            <div class=""> <label>Data Criação:</label>
-                                <input type="datetime" name="dt_criacao" class="form-control" value="<?php echo $dt_criacao; ?>" placeholder="Data de Criação"></div>
-                                <br>
-                           <div class="">
-                                <label>Data Modificação:</label>
-                                <input type="datetime" name="dt_modificacao" class="form-control" value="<?php echo $dt_modificacao; ?>" placeholder="Data de Modificação"></div> 
-                    </div>
-                
-                         
-                         <br>
-                
-                    <div class="esquerda">
-                        
-                          <?php 
-                          //alterar o botão para atualizar
-                          if ($update == true):
-
-                          ?>
-                        <br>
-                       <button type="submit" class="btn-sav" name="update">Atualizar</button>
-                       
-                       <?php else: ?><br>
-                       <button type="submit" class="btn-sav" name="guardar">Guardar</button>
-                       <button type="reset" class="btn-sav" name="limpar">Limpar</button>
-                       
-                       <?php endif;?>
-
-                       </div>                          
-        
-            </form>
-            
-       </fieldset>
-        </div>
-        </div>  
-
+        </div>    
     <footer>
         <?php include("../libraries/footer.php") ?>
    
     </footer>
-
 </div>
 
 </body>

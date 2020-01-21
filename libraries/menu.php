@@ -18,13 +18,13 @@
               </li>
             <li><a href="#gestão Diversa"><i class="fa fa-plus" aria-hidden="true"></i> Gestão Diversa</a>
                 <ul>
-                <li><a href="#entdeprocessos">Entrada de Processos</a></li>
+                    <li><a href="../views/entradadeprocessos.php">Entrada de Processos</a></li>
                 <li><a href="#estabdensino">Estabelecimento de Ensino</a></li>
                 <li><a href="#infestabdensino">Infraestruturas de Estabelecimento de Ensino</a></li>
                     <li><a href="#rhestabdensino">Recursos Humanos ao Estabelecimento de Ensino</a></li>
                     <li><a href="#avalprocesso">Avaliação do Processo</a></li>
                     <li><a href="#parcerige">Parecer do IGE</a></li>
-                    <li><a href="#parcerdne">Parecer do DNE</a></li>
+                    <li><a href="#parcerdne">Parecer da DNE</a></li>
                     <li><a href="#atrbdealvara">Atribuição de Alvará</a></li>
                 </ul>
 
@@ -32,7 +32,7 @@
             <li><a href="#estatística"><i class="fa fa-plus" aria-hidden="true"></i> Estatística</a>
 
                 <ul>
-                <li><a href="#alvaraporano">Alvará - Ano</a></li>
+                <li><a href="graficoalvaraporano.php">Alvará - Ano</a></li>
                 <li><a href="#alvaraporconcelho">Alvará - concelho</a></li>
                 <li><a href="#alvaraportipo">Alvará - Tipos</a></li>
                     <li><a href="#alvaradefeprov">Alvará - Provisório & Definitivos</a></li>
@@ -56,7 +56,7 @@
               </li>
             <li><a href="#gestão Diversa"><i class="fa fa-plus" aria-hidden="true"></i> Gestão Diversa</a>
                 <ul>
-                <li><a href="#entdeprocessos">Entrada de Processos</a></li>
+                <li><a href="../views/entradadeprocessos.php">Entrada de Processos</a></li>
                 <li><a href="#estabdensino">Estabelecimento de Ensino</a></li>
                 <li><a href="#infestabdensino">Infraestruturas de Estabelecimento de Ensino</a></li>
                     <li><a href="#rhestabdensino">Recursos Humanos ao Estabelecimento de Ensino</a></li>
@@ -76,7 +76,7 @@
             <li><a href="#estatística"><i class="fa fa-plus" aria-hidden="true"></i> Estatística</a>
 
                 <ul>
-                <li><a href="#alvaraporano">Alvará - Ano</a></li>
+                <li><a href="graficoalvaraporano.php">Alvará - Ano</a></li>
                 <li><a href="#alvaraporconcelho">Alvará - concelho</a></li>
                 <li><a href="#alvaraportipo">Alvará - Tipos</a></li>
                     <li><a href="#alvaradefeprov">Alvará - Provisório & Definitivos</a></li>
