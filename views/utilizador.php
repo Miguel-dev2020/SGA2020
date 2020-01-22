@@ -40,7 +40,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 			<div class="modal fade" id="myModalcad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header bg-success">
 							<h4 class="modal-title" id="myModalLabel">Registrar Utilizador</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							
@@ -124,20 +124,20 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 								<div class="modal fade" id="myModal<?php echo $rows_utilizadores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
-											<div class="modal-header">
+											<div class="modal-header bg-primary">
 												
 												<h4 class="modal-title text-center" id="myModalLabel"><?php echo $rows_utilizadores['utilizador']; ?></h4>
                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 											</div>
 											<div class="modal-body">
-												<p><?php echo $rows_utilizadores['id']; ?></p>
-												<p><?php echo $rows_utilizadores['utilizador']; ?></p>
-												<p><?php echo $rows_utilizadores['email']; ?></p>
-												<p><?php echo $rows_utilizadores['senha']; ?><p>
-												<p><?php echo $rows_utilizadores['situacoe_id']; ?><p>
-												<p><?php echo $rows_utilizadores['niveis_acesso_id']; ?><p>
-												<p><?php echo $rows_utilizadores['dt_criacao']; ?><p>
-												<p><?php echo $rows_utilizadores['dt_modificacao']; ?><p>
+                                                                                            <p><b>Id:</b> <?php echo $rows_utilizadores['id']; ?></p>
+                                                                                            <p><b>Utilizador:</b> <?php echo $rows_utilizadores['utilizador']; ?></p>
+                                                                                            <p><b>Email:</b> <?php echo $rows_utilizadores['email']; ?></p>
+                                                                                            <p><b>Senha:</b> <?php echo $rows_utilizadores['senha']; ?><p>
+                                                                                            <p><b>Situação:</b> <?php echo $rows_utilizadores['situacoe_id']; ?><p>
+                                                                                            <p><b>Nível de Acesso:</b> <?php echo $rows_utilizadores['niveis_acesso_id']; ?><p>
+                                                                                            <p><b>Data Criação:</b> <?php echo $rows_utilizadores['dt_criacao']; ?><p>
+                                                                                            <p><b>Data Modificação:</b> <?php echo $rows_utilizadores['dt_modificacao']; ?><p>
 												
 											</div>
 										</div>
@@ -156,7 +156,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div class="modal-header bg-warning">
 						<h4 class="modal-title" id="exampleModalLabel">Utilizadores</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						
