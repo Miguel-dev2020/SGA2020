@@ -5,7 +5,7 @@
           
             <?php session_start(); 
  
-            echo "Olá: ". $_SESSION['utilizador'];?> 
+            echo "<b>Olá Utilizador:</b> ". $_SESSION['utilizador'];?> 
             <br> <a href="../views/sair.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Terminar Sessão </a>
       </div>
 <!-- banner do sistema -->

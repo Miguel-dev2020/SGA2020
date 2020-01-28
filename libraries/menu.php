@@ -32,8 +32,8 @@
             <li><a href="#estatística"><i class="fa fa-plus" aria-hidden="true"></i> Estatística</a>
 
                 <ul>
-                <li><a href="graficoalvaraporano.php">Alvará - Ano</a></li>
-                <li><a href="#alvaraporconcelho">Alvará - concelho</a></li>
+                <li><a href="../views/graficoalvaraporano.php">Alvará - Ano</a></li>
+                <li><a href="../dashboard/dashboard.php">Alvará - concelho</a></li>
                 <li><a href="#alvaraportipo">Alvará - Tipos</a></li>
                     <li><a href="#alvaradefeprov">Alvará - Provisório & Definitivos</a></li>
                     <li><a href="#alvaraemandamento">Alvará em Andamento</a></li>
@@ -76,8 +76,8 @@
             <li><a href="#estatística"><i class="fa fa-plus" aria-hidden="true"></i> Estatística</a>
 
                 <ul>
-                <li><a href="graficoalvaraporano.php">Alvará - Ano</a></li>
-                <li><a href="#alvaraporconcelho">Alvará - concelho</a></li>
+                <li><a href="../views/graficoalvaraporano.php">Alvará - Ano</a></li>
+                <li><a href="../views/graficoalvaraporconcelho.php">Alvará - concelho</a></li>
                 <li><a href="#alvaraportipo">Alvará - Tipos</a></li>
                     <li><a href="#alvaradefeprov">Alvará - Provisório & Definitivos</a></li>
                     <li><a href="#alvaraemandamento">Alvará em Andamento</a></li>

@@ -40,7 +40,7 @@
         <div class="card-title text-center">
               
             <span> <img src="../img/logotipo-SGA.png" class="w-50" alt="Logo"> </span><br/>
-            <span class="logo_title mt-5"><b>Reserved for you</b></span>
+            <span class="logo_title mt-5"><b>Área de Login</b></span>
 
         </div>
         <div class="card-body">
@@ -64,16 +64,15 @@
                 </div>
 
             </form>
+            <br>
+            <p> Deseja alterar a sua Senha? <a href="alterarsenha.php">Clique Aqui!!!</a>
         
         </div>
        </div>
     </div>
              </div>
    </div>
- 
 
-      
-    
         <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

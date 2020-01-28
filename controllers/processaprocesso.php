@@ -2,7 +2,8 @@
 //start de sessão
 //session_start();
 //conexão com a base de dados
-    $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+    //$mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+    require_once("../views/connect.php");
     $Num_Alvara=0;
     $update = false;
     //atribuir o valor vaziu para os campos do formulário
@@ -19,7 +20,9 @@
         $Descricao = $_POST['Descricao'];
         $Tp_Alvara_id = $_POST['Tp_Alvara_id'];
         $Estabelecimento_id = $_POST['Estabelecimento_id'];
-       
+        //enviar dados para a base de dados  
+        $mysqli->query("INSERT INTO utilizadores (utilizador, email, senha, situacoe_id, niveis_acesso_id, dt_criacao, dt_modificacao)VALUES('$utilizador', '$email', '$senha', '$situacoe_id', '$niveis_acesso_id', '$dt_criacao', '$dt_modificacao')") 
+                    or die($mysqli->error);
         //mensagem do resgistro guardado
         $_SESSION['message'] = "O seu registro foi bem guardado!"; 
         $_SESSION['msg_type'] = "success";
@@ -27,9 +30,7 @@
         //Voltar para a pagina index
         header("location: ../views/utilizador.php");
         
-        //enviar dados para a base de dados  
-            $mysqli->query("INSERT INTO utilizadores (utilizador, email, senha, situacoe_id, niveis_acesso_id, dt_criacao, dt_modificacao)VALUES('$utilizador', '$email', '$senha', '$situacoe_id', '$niveis_acesso_id', '$dt_criacao', '$dt_modificacao')") 
-                    or die($mysqli->error);
+       
     }
     //apagar dados da base de dados 
     if (isset($_GET['delete'])){

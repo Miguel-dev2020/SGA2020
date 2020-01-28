@@ -1,4 +1,5 @@
-
+<?php require_once("../views/connect.php"); ?>
+<?php require_once '../controllers/processautilizador.php'; ?>
 <?php 
 if(isset($_POST['search']))
 {
@@ -16,14 +17,26 @@ else{
         return $filter_result;
     }
 ?>
-<?php require_once("../views/connect.php"); ?>
-<?php require_once '../controllers/processautilizador.php'; ?>
+
 <!doctype html>
 <html>
 <head>
     
     <title>SGA - Administração</title>
     <?php include("../libraries/header.php")?>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></link>
+    <script type="text/javascript" language="javascript">
+		$(document).ready(function() {
+			$('#listar-utilizador').DataTable({			
+				"processing": true,
+				"serverSide": true,
+				"ajax": {
+					"url": "../controller/proc_pesq_utilizador.php",
+					"type": "POST"
+				}
+			});
+		} );
+		</script>
 </head>
 
 <body>
@@ -35,13 +48,14 @@ else{
          <?php include("../libraries/menu.php")?>
   </div>  
   <div id="div-conteudo">
-      
-      <!-- formulario de pesquisa -->
+      <br><br>
+ 
+  <!-- formulario de pesquisa -->
       <div class="pesquisa">
-          
-      <form id="form-pesq" action="../views/administracao.php" method="POST">
-          
-          <fieldset id="fieldset">
+         <fieldset id="fieldset">
+
+   <form id="form-pesq" action="../views/administracao.php" method="POST">
+                    <fieldset id="fieldset">
               <legend id="legend"><b>LISTAGENS DE UTILIZADORES</b></legend><br>
               <div class="novo"><p><a href="../views/utilizador.php"><i class="fa fa-user-plus" aria-hidden="true"> Novo Utilizador</i></a></p><br></div>
               
@@ -50,9 +64,9 @@ else{
               <br>
         <br></div>
         <!-- tabela com lista de dados -->
-        <table id="table" bordercolor="#3e2c34">
+        <table class="table table-hover" >
             <tr>
-              <td>Id</td>
+              <td>#</td>
               <td>Utilizadores</td>
               <td>Email</td>
               <!--td>Situações</td>
@@ -80,11 +94,18 @@ else{
               <?php endwhile; ?>
         </table>  
               
-    </fieldset></form>
-      <!-- janea modal para edição de dados -->
-      
-<!-- Modal -->
-
+    </fieldset>
+      </form>
+          <!--/table-->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://cdnjs.couldflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript">
+      $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+      </script>
 
     
   </div>

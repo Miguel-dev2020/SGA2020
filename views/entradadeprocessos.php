@@ -52,10 +52,10 @@
     <br>
             <fieldset class="col-lg-12">
                 <legend class="col-form-label pt-0">LISTA DE ALVARÁ</legend>
-            <table class="table table-hover">
+            <table class="collection table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Num_Alvara</th>
+                        <th>Alvara Nº</th>
                         <th>Data Emissão</th>
                         <th>Data Validade</th>
                         <th>Descrição</th>
@@ -75,9 +75,9 @@
                     <td><?php echo $row['Estabelecimento_id']; ?></td>
                     <td>
                         <a href="../views/entradadeprocessos.php?edit=<?php echo $row['Num_Alvara']; ?>"
-                           class="btn btn-dark">Editar</a>
+                           class="btn-xs btn-warning">Editar</a>
                            <a href="../controllers/processaprocesso.php?delete=<?php echo $row['id']; ?>"
-                           class="btn btn-danger">Eliminar</a>
+                           class="btn-xs btn-danger">Eliminar</a>
                     </td>
                         
                     
@@ -129,7 +129,7 @@
                 <legend class="col-form-label pt-0">REGISTRAR/ATUALIZAR ALVARÁ</legend>  
                 <div class="col-md-offset-3">    
                     <form action="../controllers/processaprocesso.php" method="POST">
-                           <div class="col-sm-6"> 
+                        <div class="col-sm-6"> 
                                      <input type="hidden" name="Num_Alvara" value="<?php echo $Num_Alvara; ?>"> </div> 
                         <div class="row">     
 
@@ -138,7 +138,7 @@
  
                              <div class="col-sm-6"><label>Data Validade:</label>
                                  <input type="date" name="Dt_Validade" class="form-control" value="<?php echo $Dt_Validade; ?>" placeholder="Data de Validade"></div>
-</div> 
+                        </div> 
                       
                 
                 
@@ -162,9 +162,9 @@
                                                     echo '<option value="'.$row_nivel['utilizadores.niveis_acesso_id'].'">'.$row_nivel['acesso'].'</option>';
 
                                                 }
-                                        ?-->
+                                        ?>
 
-                                </select>
+                                </select-->
                             </div>
                             <div class="col-sm-12"> <label>Estabelecimento:</label>
                                 <input type="text" name="dt_criacao" class="form-control" value="<?php echo $Estabelecimento_id; ?>" placeholder="Estabelecimento"></div>
@@ -180,10 +180,10 @@
                           if ($update == true):
 
                           ?>
-                       <button type="submit" calss="btn btn-info" name="update">Atualizar</button>
+                       <button type="submit" calss="btn-danger" name="update">Alterar</button>
                        <?php else: ?>
-                       <button type="submit" calss="btn btn-info" name="guardar">Guardar</button>
-                       <button type="reset" calss="btn btn-primary" name="limpar">Limpar Campos</button>
+                       <button type="submit" calss="btn-success" name="guardar">Guardar</button>
+                       <button type="reset" calss="btn-primary" name="limpar">Limpar Campos</button>
                        <?php endif;?>
 
                        </div>                          

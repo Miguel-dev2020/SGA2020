@@ -1,7 +1,15 @@
 <?php require_once("../views/connect.php");
-
-$result_utilizadores = "SELECT * FROM utilizadores";
-$resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
+                        //Receber o número da página
+			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT);		
+			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
+			
+			//Setar a quantidade de itens por pagina
+			$qnt_result_pg = 5;
+			
+			//calcular o inicio da visualização
+			$inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
+                        $result_utilizadores = "SELECT * FROM utilizadores LIMIT $inicio, $qnt_result_pg";
+                        $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 ?>
 <?php require_once '../controllers/processautilizador.php'; ?>
 
@@ -30,23 +38,32 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
       <br>
 	<div class="container theme-showcase" role="main">
 			<div class="page-header">
-                            
-                               <h1> <i class="fas fa-user-cog"> UTILIZADORES DO SISTEMA</i></h1>
-			</div>
+                            <h2> 
+                                <i class="fas fa-user-cog">UTILIZADORES DO SISTEMA</i>
+                            </h2>
+                        </div>
+                         <div><h1><p class="alert-danger">
+                            <?php if(isset($_SESSION['msg'])){
+				echo $_SESSION['msg'];
+				unset($_SESSION['msg']);
+                                }?></p></div>
 			<div class="pull-right">
-				<button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#myModalcad">Criar Novo</button>
+				<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#myModalcad">Criar Novo</button>
 			</div>
 			<!-- Inicio Modal -->
 			<div class="modal fade" id="myModalcad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header bg-success">
-							<h4 class="modal-title" id="myModalLabel">Registrar Utilizador</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">#Registrar Utilizador</h4>
+                                                        <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							
 						</div>
 						<div class="modal-body">
-                                                    <form method="POST" action="../controllers/processa-registrar.php" enctype="multipart/form-data">
+                                                                        <span id="msg"></span>
+                                                                        <span id="conteudo"></span><br><br>
+                                                    <form method="POST" action="../controllers/processa-registrar.php" enctype="multipart/form-data" id="insert_form_utilizador">
+                                                        <span id="message"></span>
 								<div class="form-group">
 									<label for="recipient-utilizador" class="control-label">Utilizador:</label>
 									<input name="utilizador" type="text" class="form-control">
@@ -65,7 +82,18 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 								</div>
 								<div class="form-group">
 									<label for="recipient-niveisacesso" class="control-label">Nivel de Acesso:</label>
-									<input name="niveis_acesso_id" type="text" class="form-control">
+									<!--input name="niveis_acesso_id" type="text" class="form-control"-->
+                                                                        <select name="niveis_acesso_id" id="recipient-nivelacesso" class="form-control">
+                                                                        <option value="">--Escolher--</option>
+                                                                            <?php 
+                                                                                $result_nivel ="Select acesso from niveis_acessos INNER JOIN utilizadores on utilizadores.niveis_acesso_id=niveis_acessos.id GROUP BY acesso";
+                                                                                $resultado_nivel = mysqli_query($conn, $result_nivel);
+                                                                                While($row_nivel =mysqli_fetch_assoc($resultado_nivel)){
+                                                                                    echo '<option value="'.$row_nivel['utilizadores.niveis_acesso_id'].'">'.$row_nivel['acesso'].'</option>';
+
+                                                                                }
+                                                                            ?>
+                                                                        </select>
 								</div>
 								
 								<div class="form-group">
@@ -77,7 +105,7 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 									<input name="dt_modificacao" type="datetime" class="form-control">
 								</div>
 								<div class="modal-footer">
-									<button type="submit" class="btn-success">Registrar</button>
+									<button type="submit" class="btn btn-outline-success">Registrar</button>
 								</div>
 							</form>
 						</div>
@@ -87,11 +115,11 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 			<!-- Fim Modal -->
 			
 			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-hover">
+				<div class="col-md-10">
+					<table class="table table-sm table-hover">
 						<thead>
 							<tr>
-								<th>#Nº</th>
+								<!--th>#Nº</th-->
 								<th>Utilizador</th>
 								<th>Email</th>
 								<th>Ação</th>
@@ -100,13 +128,13 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 						<tbody>
 							<?php while($rows_utilizadores = mysqli_fetch_assoc($resultado_utilizadores)){ ?>
 								<tr>
-									<td><?php echo $rows_utilizadores['id']; ?></td>
+									<!--td></?php echo $rows_utilizadores['id']; ?></td-->
 									<td><?php echo $rows_utilizadores['utilizador']; ?></td>
 									<td><?php echo $rows_utilizadores['email']; ?></td>
 									<td>
-										<button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#myModal<?php echo $rows_utilizadores['id']; ?>">Ver</button>
+										<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal<?php echo $rows_utilizadores['id']; ?>">Ver</button>
 										
-										<button type="button" class="btn-xs btn-warning" data-toggle="modal" data-target="#exampleModal" 
+										<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" 
 										data-whatever="<?php echo $rows_utilizadores['id']; ?>" 
 										data-whateverutilizador="<?php echo $rows_utilizadores['utilizador']; ?>"  
 										data-whateveremail="<?php echo $rows_utilizadores['email']; ?>"
@@ -117,17 +145,21 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 										data-whateverdatamodificacao="<?php echo $rows_utilizadores['dt_modificacao']; ?>"
 										>Editar</button>
 										
-                                                                                <a href="../controllers/processa-eliminar.php?id=<?php echo $rows_utilizadores['id']; ?>"><button type="button" class="btn-xs btn-danger">Eliminar</button></a>
+                                                                                <a href="../controllers/processa-eliminar.php?id=<?php echo $rows_utilizadores['id']; ?>"><button type="button" class="btn btn-outline-danger">Eliminar</button></a>
 									</td>
 								</tr>
+                                                                	
+                                                                
 								<!-- Inicio Modal -->
 								<div class="modal fade" id="myModal<?php echo $rows_utilizadores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header bg-primary">
+                                                                                                <span id="msg"></span>
 												
-												<h4 class="modal-title text-center" id="myModalLabel"><?php echo $rows_utilizadores['utilizador']; ?></h4>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                                
+												<h4 class="modal-title text-center" id="myModalLabel">#<?php echo $rows_utilizadores['utilizador']; ?></h4>
+                                                                                                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" ariabg-danger-label="Close"><span aria-hidden="true">&times;</span></button>
 											</div>
 											<div class="modal-body">
                                                                                             <p><b>Id:</b> <?php echo $rows_utilizadores['id']; ?></p>
@@ -140,16 +172,54 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
                                                                                             <p><b>Data Modificação:</b> <?php echo $rows_utilizadores['dt_modificacao']; ?><p>
 												
 											</div>
+                                                                                    <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Fechar</button>
+					</div>
 										</div>
 									</div>
 								</div>
 								<!-- Fim Modal -->
 							<?php } ?>
+                                                                
 						</tbody>
-					 </table>
+                                        </table>
+                                    <div class="row justify-content-center">
+                                        <h3>
+                                    <?php
+                                                                        //Paginção - Somar a quantidade de utilizador por paginas
+                                                                        $result_pg = "SELECT COUNT(id) AS num_result FROM utilizadores";
+                                                                        $resultado_pg = mysqli_query($conn, $result_pg);
+                                                                        $row_pg = mysqli_fetch_assoc($resultado_pg);
+                                                                        //echo $row_pg['num_result'];
+                                                                        //Quantidade de pagina 
+                                                                        $quantidade_pg = ceil($row_pg['num_result'] / $qnt_result_pg);
+
+                                                                        //Limitar os link antes depois
+                                                                        $max_links = 2;
+                                                                        echo "<a href='../views/utilizador.php?pagina=1'>Primeira</a> ";
+
+                                                                        for($pag_ant = $pagina - $max_links; $pag_ant <= $pagina - 1; $pag_ant++){
+                                                                                if($pag_ant >= 1){
+                                                                                        echo "<a href='../views/utilizador.php?pagina=$pag_ant'>$pag_ant</a> ";
+                                                                                }
+                                                                        }
+
+                                                                        echo "$pagina ";
+
+                                                                        for($pag_dep = $pagina + 1; $pag_dep <= $pagina + $max_links; $pag_dep++){
+                                                                                if($pag_dep <= $quantidade_pg){
+                                                                                        echo "<a href='../views/utilizador.php?pagina=$pag_dep'>$pag_dep</a> ";
+                                                                                }
+                                                                        }
+
+                                                                        echo "<a href='../views/utilizador.php?pagina=$quantidade_pg'>Ultima</a>";
+
+                                                                ?>
+                                        </h3></div>
 				</div>
 			</div>		
 		</div>
+
 		
 		
 	
@@ -158,10 +228,11 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 				<div class="modal-content">
 					<div class="modal-header bg-warning">
 						<h4 class="modal-title" id="exampleModalLabel">Utilizadores</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						
 					</div>
 					<div class="modal-body">
+                                            <span id="msg-error"></span>
                                             <form method="POST" action="../controllers/processa-utilizadores.php" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="recipient-utilizador" class="control-label">Utilizador:</label>
@@ -181,9 +252,25 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 								</div>
 							
 							<div class="form-group">
+                                                            
 									<label for="recipient-nivelacesso" class="control-label">Nível de Acesso:</label>
 									<input name="niveis_acesso_id" type="text" class="form-control" id="recipient-nivelacesso">
-								</div>
+                                                                        
+                                                                        <!--select name="niveis_acesso_id" id="recipient-nivelacesso" class="form-control">
+                                                                        <option value="">--Escolher--</option>
+                                                                            </?php 
+                                                                                $result_nivel ="Select acesso from niveis_acessos INNER JOIN utilizadores on utilizadores.niveis_acesso_id=niveis_acessos.id GROUP BY acesso";
+                                                                                $resultado_nivel = mysqli_query($conn, $result_nivel);
+                                                                                While($row_nivel =mysqli_fetch_assoc($resultado_nivel)){
+                                                                                    echo '<option value="'.$row_nivel['utilizadores.niveis_acesso_id'].'">'.$row_nivel['acesso'].'</option>';
+
+                                                                                }
+                                                                            ?>
+                                                                        </select-->
+                                                        
+                                                        
+                                                        
+                                                        </div>
 							
 							
 							<div class="form-group">
@@ -196,8 +283,8 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 							</div>
 							<input name="id" type="hidden" id="id">
 							<div class="modal-footer">
-								<button type="button" class="btn-primary" data-dismiss="modal">Cancelar</button>
-								<button type="submit" class="btn-danger">Alterar</button>
+								<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-outline-danger">Alterar</button>
 							</div>
 						</form>
 					</div>			  
@@ -240,11 +327,12 @@ $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
 				modal.find('#recipient-datamodificacao').val(recipientdatamodificaca)
 				
 			})
+                        
 		</script>
       
       <!-- PAGINAÇÃO-->
         
-        </div>    
+</div>    
     <footer>
         <?php include("../libraries/footer.php") ?>
    
