@@ -3,7 +3,7 @@
 			$pagina_atual = filter_input(INPUT_GET,'pagina', FILTER_SANITIZE_NUMBER_INT);		
 			$pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
 			
-			//Setar a quantidade de itens por pagina
+			//definir a quantidade de itens por cada pagina
 			$qnt_result_pg = 5;
 			
 			//calcular o inicio da visualização
@@ -36,21 +36,28 @@
   </div>
   <div id="div-conteudo">
       <br>
+        
 	<div class="container theme-showcase" role="main">
 			<div class="page-header">
                             <h2> 
-                                <i class="fas fa-user-cog">UTILIZADORES DO SISTEMA</i>
+                                <i class="fas fa-user-cog">UTILIZADORES DO SISTEMA</i><hr>
                             </h2>
                         </div>
-                         <div><h1><p class="alert-danger">
-                            <?php if(isset($_SESSION['msg'])){
-				echo $_SESSION['msg'];
-				unset($_SESSION['msg']);
-                                }?></p></div>
+                         <?php 
+                            //Menssagem de Alerta com ação sobre registro 
+                            if (isset($_SESSION['message'])): ?>
+                            <div class="alert alert-<?=$_SESSION['msg_type']?>" role="alert">
+                                <?php 
+                                 echo $_SESSION['message'];
+                                 unset($_SESSION['message']); 
+                                ?>
+
+                            </div>
+                            <?php endif ?>
 			<div class="pull-right">
 				<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#myModalcad">Criar Novo</button>
 			</div>
-			<!-- Inicio Modal -->
+			<!-- Inicio Modal para registro de dados -->
 			<div class="modal fade" id="myModalcad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -65,44 +72,44 @@
                                                     <form method="POST" action="../controllers/processa-registrar.php" enctype="multipart/form-data" id="insert_form_utilizador">
                                                         <span id="message"></span>
 								<div class="form-group">
-									<label for="recipient-utilizador" class="control-label">Utilizador:</label>
-									<input name="utilizador" type="text" class="form-control">
+									<label for="recipient-utilizador" class="control-label" >Utilizador:</label>
+									<input name="utilizador" type="text" class="form-control" placeholder="Digite o utilizador">
 								</div>
 								<div class="form-group">
 									<label for="recipient-email" class="control-label">Email:</label>
-									<input name="email" type="email" class="form-control">
+									<input name="email" type="email" class="form-control" placeholder="Digite o email">
 								</div>
 								<div class="form-group">
 									<label for="recipient-senha" class="control-label">Senha:</label>
-									<input name="senha" type="password" class="form-control">
+									<input name="senha" type="password" class="form-control" placeholder="***************">
 								</div>
 								<div class="form-group">
-									<label for="recipient-situacoe" class="control-label">Situação:</label>
-									<input name="situacoe_id" type="text" class="form-control">
-								</div>
+									<label for="recipient-situacoe" class="radio-inline control-label">Situação do utilizador:</label>
+                                                                        <input name="situacoe_id" type="radio" value="1"><span class="col-sm-2"><b> Ativo</b></span>
+                                                                        <input name="situacoe_id" type="radio" value="2"><span class="col-sm-2"><b> Inativo</b></span>
+                                                                </div>
 								<div class="form-group">
 									<label for="recipient-niveisacesso" class="control-label">Nivel de Acesso:</label>
-									<!--input name="niveis_acesso_id" type="text" class="form-control"-->
-                                                                        <select name="niveis_acesso_id" id="recipient-nivelacesso" class="form-control">
-                                                                        <option value="">--Escolher--</option>
-                                                                            <?php 
-                                                                                $result_nivel ="Select acesso from niveis_acessos INNER JOIN utilizadores on utilizadores.niveis_acesso_id=niveis_acessos.id GROUP BY acesso";
-                                                                                $resultado_nivel = mysqli_query($conn, $result_nivel);
-                                                                                While($row_nivel =mysqli_fetch_assoc($resultado_nivel)){
-                                                                                    echo '<option value="'.$row_nivel['utilizadores.niveis_acesso_id'].'">'.$row_nivel['acesso'].'</option>';
-
-                                                                                }
+                                                                          <!--input name="niveis_acesso_id" type="text" class="form-control"-->  
+                                                                        <select name="select_niveis_acesso"  class="form-control">
+                                                                            <option>Selecione um acesso</option>
+                                                                            <?php
+                                                                                    $result_niveis_acessos = "SELECT * FROM niveis_acessos";
+                                                                                    $resultado_niveis_acesso = mysqli_query($conn, $result_niveis_acessos);
+                                                                                    while($row_niveis_acessos = mysqli_fetch_assoc($resultado_niveis_acesso)){ ?>
+                                                                                            <option value="<?php echo $row_niveis_acessos['id']; ?>"><?php echo $row_niveis_acessos['acesso']; ?></option> <?php
+                                                                                    }
                                                                             ?>
-                                                                        </select>
+                                                                            </select>
 								</div>
 								
 								<div class="form-group">
 									<label for="recipient-data" class="control-label">Data de criação:</label>
-									<input name="dt_criacao" type="datetime" class="form-control">
+									<input name="dt_criacao" type="date" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="recipient-data" class="control-label">Data de Modificaçao:</label>
-									<input name="dt_modificacao" type="datetime" class="form-control">
+									<input name="dt_modificacao" type="date" class="form-control">
 								</div>
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-outline-success">Registrar</button>
@@ -113,8 +120,9 @@
 				</div>
 			</div>
 			<!-- Fim Modal -->
-			
+			<!-- Apresentação de tabela com dados de utilizadores-->
 			<div class="row">
+                            
 				<div class="col-md-10">
 					<table class="table table-sm table-hover">
 						<thead>
@@ -144,13 +152,23 @@
 										data-whateverdatacriacao="<?php echo $rows_utilizadores['dt_criacao']; ?>"
 										data-whateverdatamodificacao="<?php echo $rows_utilizadores['dt_modificacao']; ?>"
 										>Editar</button>
-										
-                                                                                <a href="../controllers/processa-eliminar.php?id=<?php echo $rows_utilizadores['id']; ?>"><button type="button" class="btn btn-outline-danger">Eliminar</button></a>
+										<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#ModalEliminar<?php echo $rows_utilizadores['id']; ?>">Eliminar</button>
 									</td>
 								</tr>
                                                                 	
-                                                                
-								<!-- Inicio Modal -->
+                                                                <!-- Janela Modal para confirmar eliminação de registro-->
+                                                                <div class="modal fade" id="ModalEliminar<?php echo $rows_utilizadores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header bg-danger text-white">ELIMINAR REGISTRO<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span></button></div><div class="modal-body">Tem certeza de que deseja eliminar o registro selecionado?</div><div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-success" data-dismiss="modal">NÃO</button>
+                                                                                        <a href="../controllers/processa-eliminar.php?id=<?php echo $rows_utilizadores['id']; ?>" class="btn btn-danger text-white" id="dataComfirmOK">SIM</a></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                
+								<!-- Inicio Modal para listar dados -->
 								<div class="modal fade" id="myModal<?php echo $rows_utilizadores['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -167,7 +185,9 @@
                                                                                             <p><b>Email:</b> <?php echo $rows_utilizadores['email']; ?></p>
                                                                                             <p><b>Senha:</b> <?php echo $rows_utilizadores['senha']; ?><p>
                                                                                             <p><b>Situação:</b> <?php echo $rows_utilizadores['situacoe_id']; ?><p>
-                                                                                            <p><b>Nível de Acesso:</b> <?php echo $rows_utilizadores['niveis_acesso_id']; ?><p>
+                                                                                            <p><b>Nível de Acesso:</b> <?php echo $rows_utilizadores['niveis_acesso_id']; ?>
+                                                                                                
+                                                                                            <p>
                                                                                             <p><b>Data Criação:</b> <?php echo $rows_utilizadores['dt_criacao']; ?><p>
                                                                                             <p><b>Data Modificação:</b> <?php echo $rows_utilizadores['dt_modificacao']; ?><p>
 												
@@ -178,7 +198,7 @@
 										</div>
 									</div>
 								</div>
-								<!-- Fim Modal -->
+								<!-- Fim Modal Listagem-->
 							<?php } ?>
                                                                 
 						</tbody>
@@ -221,8 +241,7 @@
 		</div>
 
 		
-		
-	
+		<!-- Modal de Edição de Dados-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -246,18 +265,38 @@
 								<label for="recipient-senha" class="control-label">Senha:</label>
 								<input name="senha" type="password" class="form-control" id="recipient-senha">
 							</div>
-							<div class="form-group">
+							<!--div class="form-group">
 									<label for="recipient-situacoe" class="control-label">Situação:</label>
 									<input name="situacoe_id" type="text" class="form-control" id="recipient-situacoe">
-								</div>
-							
+								</div-->
+							<div class="form-group">
+									<label for="recipient-situacoe" class="control-label radio-inline">Situação do utilizador:</label>
+                                                                        <input name="situacoe_id" type="radio" value="1" id="recipient-situacoe"><span class="col-sm-2"><b> Ativo</b></span>
+                                                                        <input name="situacoe_id" type="radio" value="2" id="recipient-situacoe"><span class="col-sm-2"><b> Inativo</b></span>
+                                                                </div>
 							<div class="form-group">
                                                             
-									<label for="recipient-nivelacesso" class="control-label">Nível de Acesso:</label>
-									<input name="niveis_acesso_id" type="text" class="form-control" id="recipient-nivelacesso">
+									<!--label for="recipient-nivelacesso" class="control-label">Nível de Acesso:</label>
+									<!--input name="niveis_acesso_id" type="text" class="form-control" id="recipient-nivelacesso"-->
                                                                         
-                                                                        <!--select name="niveis_acesso_id" id="recipient-nivelacesso" class="form-control">
-                                                                        <option value="">--Escolher--</option>
+                                                                        <select name="select_niveis_acesso" id="recipient-nivelacesso" class="form-control">
+                                                                        
+                                                                            <label for="recipient-niveisacesso" class="control-label">Nivel de Acesso:</label>
+                                                                            
+                                                                            <option>Selecione um acesso</option>
+                                                                            <?php
+                                                                                    $result_niveis_acessos = "SELECT * FROM niveis_acessos";
+                                                                                    $resultado_niveis_acesso = mysqli_query($conn, $result_niveis_acessos);
+                                                                                    while($row_niveis_acessos = mysqli_fetch_assoc($resultado_niveis_acesso)){ ?>
+                                                                                            <option value="<?php echo $row_niveis_acessos['id']; ?>"><?php echo $row_niveis_acessos['acesso']; ?></option> <?php
+                                                                                    }
+                                                                            ?>
+                                                                            </select>
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            <!--option value="">--Escolher--</option>
                                                                             </?php 
                                                                                 $result_nivel ="Select acesso from niveis_acessos INNER JOIN utilizadores on utilizadores.niveis_acesso_id=niveis_acessos.id GROUP BY acesso";
                                                                                 $resultado_nivel = mysqli_query($conn, $result_nivel);
@@ -295,7 +334,7 @@
 		
 		
 		
-
+                
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -313,8 +352,8 @@
 				var recipientdatamodificaca = button.data('whateverdatamodificacao')
 				
 				
-				// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-				// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+				// Se necessário, você pode iniciar uma solicitação AJAX aqui (e fazer a atualização em um retorno de chamada).
+                                // Atualiza o conteúdo do modal. Usaremos o jQuery aqui, mas você pode usar uma biblioteca de ligação de dados ou outros métodos.
 				var modal = $(this)
 				modal.find('.modal-title').text('#Nº: ' + recipient)
 				modal.find('#id').val(recipient)

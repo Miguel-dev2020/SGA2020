@@ -34,28 +34,42 @@
       
       // type, date e options
       var chartGraph = new Chart(ctx,{
+         <?php 
+          include("../views/connect.php");
+          $sql="SELECT * FROM utilizadores";
+          $buscar = mysqli_query($conn, $sql);
           
-        type: 'line',
+          while ($dados = mysqli_fetch_array($buscar)){
+              
+            $utilizador = $dados['utilizador']; 
+            $id = $dados['id'];
+            
+            
+
+          ?>
+          
+        type: 'doughnut',
         data:{
-        labels: ["2019","2020","2021","2022"],
+        labels: ["utilizador","id"],
         datasets: [
             {
              labels: "EMISSÃO DE ALVARÁ - 2020",
-             data: [10,15,5,10,25],
+             data: ['<?php echo $utilizador?>',<?php echo $id ?>],
              borderWidth: 6,
              borderColor: 'rgba(77,166,253,0.85)',
              backgroundColor: 'transparent',
                            
         },
         {
-             labels: "EMISSÃO DE ALVARÁ - 2021",
-             data: [9,10,7,10,30],
+             labels: "EMISSÃO DE ALVARÁ - 2020",
+             data: ['<?php echo $utilizador?>',<?php echo $id ?>],
              borderWidth: 6,
              borderColor: 'rgba(255,100,255,0.85)',
              backgroundColor: 'transparent',
          },
-         ]
+          ]
         },
+        <?php } ?>
         options: {
             title: {
                 display: true,

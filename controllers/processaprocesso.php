@@ -1,81 +1,98 @@
 <?php
-//start de sessão
-//session_start();
-//conexão com a base de dados
-    //$mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+
     require_once("../views/connect.php");
-    $Num_Alvara=0;
+    //Verificar se a sessão já se encontra aberta e iniciar.
+        //if (session_status() !== PHP_SESSION_ACTIVE){
+          //iniciar a sessão
+   //session_start();
+   //Eliminar uma sessão
+    //unset($_SESSION['utilizador']);} 
+  
+
+
+  
+    
+    //conexão com a base de dados
+    $mysqli = new mysqli('localhost', 'root', '', 'bd-sga') or die (mysqli_error($mysqli));
+
+    $id=0;
     $update = false;
     //atribuir o valor vaziu para os campos do formulário
-    $Dt_Emissao = '';
-    $Dt_Validade = '';
+    $Nome_Estabelecimento = '';
+    $Num_Nota = '';
+    $Dt_Correspondencia = '';
+    $Num_Entrada = '';
+    $Dt_Entrada = '';
     $Descricao = '';
-    $Tp_Alvara_id = '';
-    $Estabelecimento_id = '';
-
+    
     if (isset($_POST['guardar'])){
-        $Num_Alvara = $_POST['Num_Alvara'];
-        $Dt_Emissao = $_POST['Dt_Emissao'];
-        $Dt_Validade = ['Dt_Validade'];
+        $Nome_Estabelecimento = $_POST['Nome_Estabelecimento'];
+        $Num_Nota = $_POST['Num_Nota'];
+        $Dt_Correspondencia = $_POST['Dt_Correspondencia'];
+        $Num_Entrada = $_POST['Num_Entrada'];
+        $Dt_Entrada = $_POST['Dt_Entrada'];
+        $dt_criacao = $_POST['dt_criacao'];
         $Descricao = $_POST['Descricao'];
-        $Tp_Alvara_id = $_POST['Tp_Alvara_id'];
-        $Estabelecimento_id = $_POST['Estabelecimento_id'];
-        //enviar dados para a base de dados  
-        $mysqli->query("INSERT INTO utilizadores (utilizador, email, senha, situacoe_id, niveis_acesso_id, dt_criacao, dt_modificacao)VALUES('$utilizador', '$email', '$senha', '$situacoe_id', '$niveis_acesso_id', '$dt_criacao', '$dt_modificacao')") 
-                    or die($mysqli->error);
+
         //mensagem do resgistro guardado
         $_SESSION['message'] = "O seu registro foi bem guardado!"; 
         $_SESSION['msg_type'] = "success";
 
         //Voltar para a pagina index
-        header("location: ../views/utilizador.php");
+        $destino = header("Location: ../views/entradadeprocessos.php");
         
-       
+        //enviar dados para a base de dados 
+
+	$mysqli->query("INSERT INTO `correspondencia` (`id`, `Nome_Estabelecimento`, `Num_Nota`, `Dt_Correspondencia`, `Num_Entrada`, `Dt_Entrada`, `Descricao`) VALUES (NULL, '$Nome_Estabelecimento', '$Num_Nota', '$Dt_Correspondencia', '$Num_Entrada', '$Dt_Entrada','$Descricao')") 
+                    or die($mysqli->error);	
+        
     }
     //apagar dados da base de dados 
-    if (isset($_GET['delete'])){
-        $Num_Alvara = $_GET['delete'];
-        $mysqli->query("DELETE FROM alvara WHERE Num_Alvara = $Num_Alvara") or die($mysqli->error());
+    //if (isset($_GET['delete'])){
+       // $id = $_GET['delete'];
+       // $mysqli->query("DELETE FROM correspondencia WHERE id = $id") or die($mysqli->error());
         
         //mensagem do resgistro guardado
-        $_SESSION['message'] = "Um registro foi bem eliminado!"; 
-        $_SESSION['msg_type'] = "danger";
+        //$_SESSION['message'] = "Um registro foi bem eliminado!"; 
+        //$_SESSION['msg_type'] = "danger";
 
         //Voltar para a pagina index
-        header("location: ../views/entradadeprocessos.php");
-    } 
+        //header("Location: ../views/entradadeprocessos.php");
+    //} 
     
     //veficar o botão fazer comparação e atualizar registro na base de dados 
     if (isset($_GET['edit'])){
-        $Num_Alvara = $_GET['edit'];
+        $id = $_GET['edit'];
         $update = true;
-        $result = $mysqli->query("SELECT * FROM alvara WHERE Num_Alvara = $Num_Alvara") or die($mysqli->error());
+        $result = $mysqli->query("SELECT * FROM correspondencia WHERE id = $id") or die($mysqli->error());
         if(count($result)==1){
             $row = $result->fetch_array();
-            $Dt_Emissao = $row['Dt_Emissao'];
-            $Dt_Validade = $row['Dt_Validade'];
+            $Nome_Estabelecimento = $row['Nome_Estabelecimento'];
+            $Num_Nota = $row['Num_Nota'];
+            $Dt_Correspondencia = $row['Dt_Correspondencia'];
+            $Num_Entrada = $row['Num_Entrada'];
+            $Dt_Entrada = $row['Dt_Correspondencia'];
             $Descricao = $row['Descricao'];
-            $Tp_Alvara_id = $row['Tp_Alvara_id'];
-            $Estabelecimento_id = $row['Estabelecimento_id'];
-
+            
         
     }
     }
     if (isset($_POST['update'])){
-            $Num_Alvara = $_POST['Num_Alvara'];
-            $Dt_Emissao = $row['Dt_Emissao'];
-            $Dt_Validade = $row['Dt_Validade'];
-            $Descricao = $row['Descricao'];
-            $Tp_Alvara_id = $row['Tp_Alvara_id'];
-            $Estabelecimento_id = $row['Estabelecimento_id'];
+        $id = $_POST['id'];
+        $Nome_Estabelecimento = $_POST['Nome_Estabelecimento'];
+        $Num_Nota = $_POST['Num_Nota'];
+        $Dt_Correspondencia = $_POST['Dt_Correspondencia'];
+        $Num_Entrada = $_POST['Num_Entrada'];
+        $Dt_Entrada = $_POST['Dt_Correspondencia'];
+        $Descricao = $_POST['Descricao'];
         
         //atualização dos dados
-        $mysqli->query("UPDATE alvara SET Num_Alvara='$Num_Alvara', Dt_Emissao='$Dt_Emissao', Dt_Validade='$Dt_Validade', Tp_Alvara_id='$Tp_Alvara_id', Estabelecimento_id='$Estabelecimento_id' WHERE Num_Alvara=$Num_Alvara") or die($mysqli->error);
+        $mysqli->query("UPDATE correspondencia SET Nome_Estabelecimento='$Nome_Estabelecimento', Num_Nota='$Num_Nota', Dt_Correspondencia='$Dt_Correspondencia', Num_Entrada='$Num_Entrada', Dt_Entrada='$Dt_Entrada', Descricao='$Descricao' WHERE id=$id") or die($mysqli->error);
     
         //mensagem do resgistro guardado
         $_SESSION['message'] = "O seu registro foi bem atualizado!"; 
         $_SESSION['msg_type'] = "warning";
         //Voltar para a pagina index
-        header("location: ../views/entradadeprocessos.php");
+        $destino = header("Location: ../views/entradadeprocessos.php");
     }
 ?>

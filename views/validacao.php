@@ -1,5 +1,5 @@
 <?php
-	session_start();	
+session_start();	
 	//Incluindo a conexão com banco de dados
      include_once("../views/connect.php");
 
@@ -10,7 +10,7 @@
 		$senha = md5($senha);
 			
 		//Buscar na tabela utilizadores o utilizador que corresponde com os dados digitado no formulário
-		$result_utilizador = "SELECT * FROM utilizadores WHERE email = '$utilizador' && senha = '$senha' LIMIT 1";
+		$result_utilizador = "SELECT * FROM utilizadores WHERE email = '$utilizador' && senha = '$senha' && situacoe_id = '1' LIMIT 1";
 		$resultado_utilizador = mysqli_query($conn, $result_utilizador);
 		$resultado = mysqli_fetch_assoc($resultado_utilizador);
 		
@@ -19,24 +19,25 @@
 			$_SESSION['utilizadorId'] = $resultado['id'];
 			$_SESSION['utilizador'] = $resultado['utilizador'];
 			$_SESSION['utilizadorNiveisAcessoId'] = $resultado['niveis_acesso_id'];
+                        $_SESSION['utilizadorSituacoeId'] = $resultado['situacoe_id'];
 			$_SESSION['utilizadorEmail'] = $resultado['email'];
 			if($_SESSION['utilizadorNiveisAcessoId'] == "1"){
 				header("Location: ../views/administracao.php");
 			}elseif($_SESSION['utilizadorNiveisAcessoId'] == "2"){
-				header("Location: ../views/colaborador.php");
+				$destino = header("Location: ../views/colaborador.php");
 			}else{
-				header("Location: ../views/visitante.php");
+				$destino = header("Location: ../views/visitante.php");
 			}
 		//Não foi encontrado um utilizador na tabela utilizadores com os mesmos dados digitado no formulário
 		//redireciona o utilizador para a página de login
 		}else{	
 			//Váriavel global recebendo a mensagem de erro
 			$_SESSION['Erro_login'] = "Utilizador ou senha Inválido";
-			header("Location: ../views/index.php");
+			$destino = header("Location: ../views/index.php");
 		}
 	//O campo utilizador e senha não preenchido entra no else e redireciona o utilizador para a página de login
 	}else{
 		$_SESSION['Erro_login'] = "Utilizador ou senha inválido";
-		header("Location: ../views/index.php");
+		$destino = header("Location: ../views/index.php");
 	}
 ?>

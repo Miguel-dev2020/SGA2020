@@ -1,57 +1,23 @@
 <?php
 	require_once("../views/connect.php");
-	
-	//$id = $_GET['id'];
-	
-	//$result_utilizadores = "DELETE FROM utilizadores WHERE id = '$id'";
-	//$resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
-        
+	session_start();
+	$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         if(!empty($id)){
-                $result_utilizadores = "DELETE FROM utilizador WHERE id='$id'";
-                $resultado_utilizadores = mysqli_query($conn, $result_utilizadores);
+                $result_utilizadores = "DELETE FROM utilizadores WHERE id='$id'";
+                $resultado_utilizadores= mysqli_query($conn, $result_utilizadores);
                 if(mysqli_affected_rows($conn)){
-                        $_SESSION['msg'] = "<p style='color:green;'>Utilizador apagado com sucesso</p>";
-                        header("location: ../views/utilizador.php");
+                        $_SESSION['message'] = "<p style='color:green;'>Utilizador apagado com sucesso</p>";
+                        $_SESSION['msg_type'] ="success";
+                        $destino = header("Location: ../views/utilizador.php");
                 }else{
 
-                        $_SESSION['msg'] = "<p style='color:red;'>Erro o utilizador não foi apagado com sucesso</p>";
-                        header("location: ../views/utilizador.php");
+                        $_SESSION['message'] = "<p style='color:red;'>Erro o utilizador não foi apagado com sucesso</p>";
+                        $_SESSION['msg_type'] = "warning";
+                        $destino = header("Location: ../views/utilizador.php");
                 }
         }else{	
-                $_SESSION['msg'] = "<p style='color:red;'>Necessário selecionar um utilizador</p>";
-                header("location: ../views/utilizador.php");
+                $_SESSION['message'] = "<p style='color:red;'>Necessário selecionar um utilizador</p>";
+                $_SESSION['msg_type'] = "warning";
+                $destino = header("Location: .../views/utilizador.php");
         }
-
-
-
-//Voltar para a pagina index
-        //header("location: ../views/utilizador.php");
 ?>
-
-
-
-<!--DOCTYPE html>
-<html lang="pt-br">
-	<head>
-		<meta charset="utf-8">
-	</head>
-
-	<body> </?php
-		if(mysqli_affected_rows($conn) != 0){
-			echo "
-				<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/bda2020/views/utilizador.php'>
-				<script type=\"text/javascript\">
-					alert(\"Registro apagado com Sucesso.\");
-				</script>
-			";	
-		}else{
-			echo "
-				<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/bda2020/views/utilizador.php'>
-				<script type=\"text/javascript\">
-					alert(\"Registro não foi apagado.\");
-				</script>
-			";	
-		}?>
-	</body>
-</html>
-</?php $conn->close(); ?-->

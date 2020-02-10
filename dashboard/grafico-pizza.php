@@ -1,4 +1,4 @@
-  
+
     <!-- Start Cavas -> Desenhar elemento do gráfico usando JS -->
       <canvas class="line-chart"></canvas>
         
@@ -19,8 +19,7 @@
           
           while ($dados = mysqli_fetch_array($buscar)){
               
-            $id = $dados['id']; 
-            $id = $dados['id'];
+            $id= $dados['id']; 
             $id = $dados['id'];
             
             
@@ -29,11 +28,11 @@
           
         type: 'doughnut',
         data:{
-        labels: ["id","id", "id"],
+        labels: ["id","id"],
         datasets: [
             {
              labels: "EMISSÃO DE ALVARÁ - 2020",
-             data: ['<?php echo $id?>',<?php echo $id ?>,<?php echo $id ?>],
+             data: ['<?php echo $id ?>',<?php echo $id ?>],
              borderWidth: 6,
              borderColor: 'rgba(77,166,253,0.85)',
              backgroundColor: 'transparent',
@@ -41,7 +40,7 @@
         },
         {
              labels: "EMISSÃO DE ALVARÁ - 2020",
-             data: ['<?php echo $id ?>',<?php echo $id ?>, <?php echo $id ?>],
+             data: ['<?php echo $id ?>',<?php echo $id ?>],
              borderWidth: 6,
              borderColor: 'rgba(255,100,255,0.85)',
              backgroundColor: 'transparent',
